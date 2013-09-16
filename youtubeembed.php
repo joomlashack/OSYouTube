@@ -38,7 +38,7 @@ class plgContentYoutubeEmbed extends JPlugin
 	* @param object The article params
 	* @param int The 'page' number
 	*/
-	function onContentPrepare( $context, &$article, &$params, $page = 0)
+	function onPrepareContent( &$article, &$params, $limitstart )
 		{
 		global $mainframe;
 	
@@ -55,7 +55,8 @@ class plgContentYoutubeEmbed extends JPlugin
 	function youtubeCodeEmbed( $vCode )
 	{
 
-	 	$params = $this->params;
+		$plugin =& JPluginHelper::getPlugin('content', 'youtubeembed');
+	 	$params = new JParameter( $plugin->params );
 
 		$width = $params->get('width', 425);
 		$height = $params->get('height', 344);

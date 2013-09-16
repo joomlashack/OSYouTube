@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="content">
+<install version="1.5" type="plugin" group="content">
 	<name>Content - YouTube Video Embedding</name>
 	<author>Cory Webb</author>
 	<creationDate>March 2009</creationDate>
@@ -12,12 +12,8 @@
 	<files>
 		<filename plugin="youtubeembed">youtubeembed.php</filename>
 	</files>
-	<config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field name="width" type="text" default="425" label="Width" description="Set the width of the YouTube video. The default width is 425 pixels." />
-				<field name="height" type="text" default="344" label="Height" description="Set the height of the YouTube video. The default width is 344 pixels." />
-			</fieldset>
-		</fields>
-	</config>
-</extension>
+	<params>
+		<param name="width" type="text" default="425" label="Width" description="Set the width of the YouTube video. The default width is 425 pixels." />
+		<param name="height" type="text" default="344" label="Height" description="Set the height of the YouTube video. The default width is 344 pixels." />
+	</params>
+</install>
