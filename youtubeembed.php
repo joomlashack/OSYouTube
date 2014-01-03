@@ -1,9 +1,8 @@
 <?php
 /**
-* @copyright Copyright (C) 2008 Cory Webb. All rights reserved.
+* @copyright Copyright (C) 2013 OSTraining.com
 * @license GNU/GPL
 *
-* Special thanks to Simon Tiplady (http://www.stiplady.net) for help with the regular expressions.
 */
 
 // Check to ensure this file is included in Joomla!
@@ -47,7 +46,7 @@ class plgContentYoutubeEmbed extends JPlugin
 		}
 	
 		$article->text = preg_replace('|(http://www.youtube.com/watch\?v=([a-zA-Z0-9_-]+))|e', '$this->youtubeCodeEmbed("\2")', $article->text);
-	
+
 		return true;
 	
 	}
@@ -55,12 +54,26 @@ class plgContentYoutubeEmbed extends JPlugin
 	function youtubeCodeEmbed( $vCode )
 	{
 
-	 	$params = $this->params;
+		$output = '';
+		$params = $this->params;
 
 		$width = $params->get('width', 425);
 		$height = $params->get('height', 344);
-	
-		return '<object width="'.$width.'" height="'.$height.'"><param name="movie" value="http://www.youtube.com/v/'.$vCode.'"></param><param name="allowFullScreen" value="true"></param><embed src="http://www.youtube.com/v/'.$vCode.'" type="application/x-shockwave-flash" allowfullscreen="true" width="'.$width.'" height="'.$height.'"></embed></object>';
+		$responsive = $params->get('responsive', 1);
+
+		if( $responsive ){
+		    $doc = JFactory::getDocument();
+		    $doc->addStyleSheet(JURI::base() . "plugins/content/youtubeembed/style.css");
+		    $output .= '<div class="video-responsive">';
+		}
+
+		$output .= '<iframe width="'.$width.'" height="'.$height.'" src="//www.youtube.com/embed/'.$vCode.'" frameborder="0" allowfullscreen></iframe>';
+
+		if( $responsive ){
+		    $output .= '</div>';
+		}
+
+		return $output;
 	}
 
 }

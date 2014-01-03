@@ -3,20 +3,25 @@
 	<name>Content - YouTube Video Embedding</name>
 	<author>Cory Webb</author>
 	<creationDate>March 2009</creationDate>
-	<copyright>Copyright (C) 2008 Cory Webb. All rights reserved.</copyright>
+	<copyright>Copyright (C) 2013 OSTraining.com</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>cory@corywebbmedia.com</authorEmail>
-	<authorUrl>www.corywebbmedia.com</authorUrl>
-	<version>1.1</version>
-	<description>With this plugin, you can embed YouTube videos into articles simply by copying and pasting a video URL from YouTube into an article.</description>
+	<authorEmail>info@ostraining.com</authorEmail>
+	<authorUrl>http://www.ostraining.com</authorUrl>
+	<version>2.1</version>
+	<description>With this plugin, you can embed YouTube videos into articles simply by copying and pasting a video URL from YouTube into an article with fluid responsive support.</description>
 	<files>
 		<filename plugin="youtubeembed">youtubeembed.php</filename>
+		<filename plugin="youtubeembed">style.css</filename>
 	</files>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
 				<field name="width" type="text" default="425" label="Width" description="Set the width of the YouTube video. The default width is 425 pixels." />
 				<field name="height" type="text" default="344" label="Height" description="Set the height of the YouTube video. The default width is 344 pixels." />
+				<field name="responsive" type="radio" class="btn-group btn-group-yesno" default="1" label="Responsive" description="Use fluid responsive behavior.">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>
