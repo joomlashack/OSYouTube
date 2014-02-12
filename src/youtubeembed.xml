@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="content">
+    <name>PLG_CONTENT_YOUTUBEEMBED</name>
+    <author>Cory Webb</author>
+    <creationDate>February 12, 2014</creationDate>
+    <copyright>Copyright (C) 2013 OSTraining.com</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>info@ostraining.com</authorEmail>
+    <authorUrl>http://www.ostraining.com</authorUrl>
+    <version>2.2.0</version>
+    <description>PLG_CONTENT_YOUTUBEEMBED_DESCRIPTION</description>
+
+    <files>
+        <folder>language</folder>
+        <filename plugin="youtubeembed">youtubeembed.php</filename>
+        <filename plugin="youtubeembed">style.css</filename>
+    </files>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                        name="width"
+                        type="text"
+                        default="425"
+                        label="PLG_CONTENT_YOUTUBEEMBED_FIELD_WIDTH_LABEL"
+                        description="PLG_CONTENT_YOUTUBEEMBED_FIELD_WIDTH_DESC"/>
+
+                <field
+                        name="height"
+                        type="text"
+                        default="344"
+                        label="PLG_CONTENT_YOUTUBEEMBED_FIELD_HEIGHT_LABEL"
+                        description="PLG_CONTENT_YOUTUBEEMBED_FIELD_HEIGHT_DESC"/>
+
+                <field
+                        name="responsive"
+                        type="radio"
+                        class="btn-group btn-group-yesno"
+                        default="1"
+                        label="PLG_CONTENT_YOUTUBEEMBED_FIELD_RESPONSIVE_LABEL"
+                        description="PLG_CONTENT_YOUTUBEEMBED_FIELD_RESPONSIVE_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
