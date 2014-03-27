@@ -38,13 +38,11 @@ class plgContentYoutubeEmbed extends JPlugin
             return true;
         }
 
-        echo count(func_get_args()) . ': ';
-        echo gettype($context) . '/' . gettype($article) . '/' . gettype($params) . '/' . gettype($page);
-        $article->text = preg_replace(
-            '|(http://www.youtube.com/watch\?v=([a-zA-Z0-9_-]+))|e',
-            '$this->youtubeCodeEmbed("\2")',
-            $article->text
+        $bbcode = array(
+            '|(http://www.youtube.com/watch\?v=([a-zA-Z0-9_-]+))|e' => '$this->youtubeCodeEmbed("\2")', //http
+            '|(https://www.youtube.com/watch\?v=([a-zA-Z0-9_-]+))|e' => '$this->youtubeCodeEmbed("\2")'  //https
         );
+        $article->text = preg_replace(array_keys($bbcode), array_values($bbcode), $article->text);
 
         return true;
     }
