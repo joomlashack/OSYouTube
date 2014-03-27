@@ -34,7 +34,7 @@ class plgContentYoutubeEmbed extends JPlugin
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-        if (JString::strpos($article->text, 'http://www.youtube.com/') === false) {
+        if (JString::strpos($article->text, '://www.youtube.com/') === false) {
             return true;
         }
 
