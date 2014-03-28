@@ -34,15 +34,27 @@ class plgContentYoutubeEmbed extends JPlugin
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-        if (JString::strpos($article->text, '://www.youtube.com/') === false) {
+        if (JString::strpos($article->text, '://www.youtube.com/watch') === false) {
             return true;
         }
 
-        $bbcode = array(
-            '|(http://www.youtube.com/watch\?v=([a-zA-Z0-9_-]+))|e' => '$this->youtubeCodeEmbed("\2")', //http
-            '|(https://www.youtube.com/watch\?v=([a-zA-Z0-9_-]+))|e' => '$this->youtubeCodeEmbed("\2")'  //https
+        // Note! The order of these expressions matters
+        $regex = array(
+            '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"]+)[\'"][^>]*>(.+)?(?:</a>)))#',
+            '#https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)#'
         );
-        $article->text = preg_replace(array_keys($bbcode), array_values($bbcode), $article->text);
+
+        foreach ($regex as $r) {
+            if (preg_match_all($r, $article->text, $matches)) {
+                foreach ($matches[0] as $k => $source) {
+                    $article->text = str_replace(
+                        $source,
+                        $this->youtubeCodeEmbed($matches[1][$k]),
+                        $article->text
+                    );
+                }
+            }
+        }
 
         return true;
     }
@@ -62,10 +74,20 @@ class plgContentYoutubeEmbed extends JPlugin
             $output .= '<div class="video-responsive">';
         }
 
-        $output .= '<iframe width="'
-            . $width . '" height="'
-            . $height . '" src="//www.youtube.com/embed/'
-            . $vCode . '" frameborder="0" allowfullscreen></iframe>';
+        $query = explode('&', htmlspecialchars_decode($vCode));
+        $vCode = array_shift($query);
+        if ($query) {
+            $vCode .= '?' . http_build_query($query);
+        }
+
+        $attribs = array(
+            'width'       => $width,
+            'height'      => $height,
+            'src'         => '//www.youtube.com/embed/' . $vCode,
+            'frameborder' => '0'
+        );
+
+        $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
         if ($responsive) {
             $output .= '</div>';
