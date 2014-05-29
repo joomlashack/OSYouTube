@@ -14,6 +14,3 @@ Joomla 2.5.x or 3.x
 
 [GNU General Public License v2 or later](http://www.gnu.org/copyleft/gpl.html)
 
-YouTube Video Embedding Plugin
-==============================
-
