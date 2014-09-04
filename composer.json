@@ -1,0 +1,22 @@
+{
+    "name"             : "OSTraining/OSYoutube",
+    "description"      : "OSYoutube",
+    "minimum-stability": "stable",
+    "license"          : "GPL-2+",
+    "type"             : "joomla.plugin",
+    "extra"            : {
+        "element": "plg_content_youtubeembed",
+        "name":    "OSYoutube",
+        "folder":  "content",
+        "client"L  "site"
+    },
+    "authors"          : [
+        {
+            "name" : "Open Source Training",
+            "email": "info@ostraining.com"
+        }
+    ],
+    "require"          : {
+        "php"       : ">= 5.3"
+    }
+}
