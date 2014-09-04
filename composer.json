@@ -8,7 +8,7 @@
         "element": "plg_content_youtubeembed",
         "name":    "OSYoutube",
         "folder":  "content",
-        "client"L  "site"
+        "client":  "site"
     },
     "authors"          : [
         {
