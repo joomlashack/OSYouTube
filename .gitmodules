@@ -1,6 +1,3 @@
 [submodule "src/library/alledia"]
 	path = src/library/alledia
 	url = git@github.com:OSTraining/Alledia-Joomla-Framework.git
-[submodule "phing"]
-	path = phing
-	url = git@github.com:OSTraining/PhingScripts.git
