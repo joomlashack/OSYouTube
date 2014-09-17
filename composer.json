@@ -5,7 +5,7 @@
     "license"          : "GPL-2+",
     "type"             : "joomla.plugin",
     "extra"            : {
-        "element": "plg_content_youtubeembed",
+        "element": "plg_content_osyoutube",
         "name":    "OSYoutube",
         "folder":  "content",
         "client":  "site"
