@@ -3,4 +3,4 @@
 	url = git@github.com:OSTraining/AllediaLibrary.git
 [submodule "phing"]
 	path = phing
-	url = git@github.com:OSTraining/AllediaBuilder
+	url = git@github.com:OSTraining/AllediaBuilder.git
