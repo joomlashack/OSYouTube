@@ -5,11 +5,12 @@
     "license"          : "GPL-2+",
     "type"             : "joomla.plugin",
     "extra"            : {
-        "element"     : "plg_content_osyoutube",
-        "name"        : "OSYoutube",
-        "folder"      : "content",
-        "client"      : "site",
-        "package-type": "free"
+        "element"      : "plg_content_osyoutube",
+        "element-short": "osyoutube",
+        "name"         : "OSYoutube",
+        "folder"       : "content",
+        "client"       : "site",
+        "package-type" : "free"
     },
     "authors"          : [
         {
