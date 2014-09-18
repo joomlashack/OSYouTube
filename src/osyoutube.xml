@@ -2,7 +2,7 @@
 <extension version="2.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_OSYOUTUBE</name>
     <author>OSTraining</author>
-    <creationDate>September 17 2014</creationDate>
+    <creationDate>September 18 2014</creationDate>
     <copyright>Copyright (C) 2013-2014 OSTraining.com</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@ostraining.com</authorEmail>
@@ -49,6 +49,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="OSDonate Module"><![CDATA[http://deploy.ostraining.com/updates/joomla/plg_content_osyoutube.xml]]></server>
+        <server type="extension" priority="1" name="OSYoutube"><![CDATA[http://deploy.ostraining.com/updates/joomla/plg_content_osyoutube.xml]]></server>
     </updateservers>
 </extension>
