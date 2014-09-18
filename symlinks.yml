@@ -1,0 +1,7 @@
+mkdir:
+    - plugins/content/osyoutube
+symlinks:
+    - src/language: plugins/content/osyoutube/language
+    - src/library: plugins/content/osyoutube/library
+    - src/style.css: plugins/content/osyoutube/style.css
+    - src/osyoutube.xml: plugins/content/osyoutube/osyoutube.xml
