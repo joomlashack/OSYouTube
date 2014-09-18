@@ -12,8 +12,9 @@
 
     <files>
         <folder>language</folder>
+        <folder>library</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
-        <filename plugin="osyoutube">style.css</filename>
+        <filename>style.css</filename>
     </files>
 
     <config>

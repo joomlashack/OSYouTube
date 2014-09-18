@@ -10,6 +10,8 @@ defined('_JEXEC') or die();
 
 jimport('joomla.plugin.plugin');
 
+require_once 'include.php';
+
 /**
  * OSYouTube Content Plugin
  *
@@ -86,6 +88,10 @@ class plgContentOSYoutube extends JPlugin
             'src'         => '//www.youtube.com/embed/' . $vCode,
             'frameborder' => '0'
         );
+
+        if (OSYOUTUBE_PRO) {
+            $attribs = OSYouTubePro\Embed::setAttributes($params, $attribs);
+        }
 
         $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
