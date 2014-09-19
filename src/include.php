@@ -10,10 +10,8 @@ defined('_JEXEC') or die();
 
 define('OSYOUTUBE_PLUGIN_PATH', JPATH_SITE . '/plugins/content/osyoutube');
 
-require_once OSYOUTUBE_PLUGIN_PATH . '/library/alledia/include.php';
-
+// Detect Pro Code
 $proLibraryPath = OSYOUTUBE_PLUGIN_PATH . '/library/pro/include.php';
-
 define('OSYOUTUBE_PRO', file_exists($proLibraryPath));
 
 if (OSYOUTUBE_PRO) {
