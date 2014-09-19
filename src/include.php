@@ -10,6 +10,16 @@ defined('_JEXEC') or die();
 
 define('OSYOUTUBE_PLUGIN_PATH', JPATH_SITE . '/plugins/content/osyoutube');
 
+// Alledia Library
+if (!defined('ALLEDIA_LOADED')) {
+    $allediaLibraryPath = JPATH_SITE . '/libraries/alledia/include.php';
+    if (!file_exists($allediaLibraryPath)) {
+        throw new Exception('Alledia library not found', 1);
+    } else {
+        require_once $allediaLibraryPath;
+    }
+}
+
 // Detect Pro Code
 $proLibraryPath = OSYOUTUBE_PLUGIN_PATH . '/library/pro/include.php';
 define('OSYOUTUBE_PRO', file_exists($proLibraryPath));
