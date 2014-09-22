@@ -1,27 +1,29 @@
 <?php
 /**
- * @package   plg_content_youtubeembed
+ * @package   OSYouTube
  * @contact   www.ostraining.com, support@ostraining.com
  * @copyright 2013-2014 Open Source Training, LLC. All rights reserved
- * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 defined('_JEXEC') or die();
 
 jimport('joomla.plugin.plugin');
 
+require_once 'include.php';
+
 /**
- * YouTube Video Embedder Content Plugin
+ * OSYouTube Content Plugin
  *
  */
-class plgContentYoutubeEmbed extends JPlugin
+class plgContentOSYoutube extends JPlugin
 {
     public function __construct(&$subject, $config = array())
     {
         parent::__construct($subject, $config);
 
         $lang = JFactory::getLanguage();
-        $lang->load('plg_content_youtubeembed.sys', __DIR__);
+        $lang->load('plg_content_osyoutube.sys', __DIR__);
     }
 
     /**
@@ -70,7 +72,7 @@ class plgContentYoutubeEmbed extends JPlugin
 
         if ($responsive) {
             $doc = JFactory::getDocument();
-            $doc->addStyleSheet(JURI::base() . "plugins/content/youtubeembed/style.css");
+            $doc->addStyleSheet(JURI::base() . "plugins/content/osyoutube/style.css");
             $output .= '<div class="video-responsive">';
         }
 
@@ -86,6 +88,10 @@ class plgContentYoutubeEmbed extends JPlugin
             'src'         => '//www.youtube.com/embed/' . $vCode,
             'frameborder' => '0'
         );
+
+        if (OSYOUTUBE_PRO) {
+            $attribs = OSYouTubePro\Embed::setAttributes($params, $attribs);
+        }
 
         $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 

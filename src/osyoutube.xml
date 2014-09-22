@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="content" method="upgrade">
-    <name>PLG_CONTENT_YOUTUBEEMBED</name>
+    <name>PLG_CONTENT_OSYOUTUBE</name>
     <author>OSTraining</author>
-    <creationDate>March 28 2014</creationDate>
+    <creationDate>September 18 2014</creationDate>
     <copyright>Copyright (C) 2013-2014 OSTraining.com</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@ostraining.com</authorEmail>
     <authorUrl>http://www.ostraining.com</authorUrl>
-    <version>2.2.2</version>
-    <description>PLG_CONTENT_YOUTUBEEMBED_DESCRIPTION</description>
+    <version>3.0.0</version>
+    <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
     <files>
         <folder>language</folder>
-        <filename plugin="youtubeembed">youtubeembed.php</filename>
-        <filename plugin="youtubeembed">style.css</filename>
+        <filename plugin="osyoutube">osyoutube.php</filename>
+        <filename>include.php</filename>
+        <filename>style.css</filename>
     </files>
 
     <config>
@@ -23,23 +24,23 @@
                         name="width"
                         type="text"
                         default="425"
-                        label="PLG_CONTENT_YOUTUBEEMBED_FIELD_WIDTH_LABEL"
-                        description="PLG_CONTENT_YOUTUBEEMBED_FIELD_WIDTH_DESC"/>
+                        label="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_LABEL"
+                        description="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_DESC"/>
 
                 <field
                         name="height"
                         type="text"
                         default="344"
-                        label="PLG_CONTENT_YOUTUBEEMBED_FIELD_HEIGHT_LABEL"
-                        description="PLG_CONTENT_YOUTUBEEMBED_FIELD_HEIGHT_DESC"/>
+                        label="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_LABEL"
+                        description="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_DESC"/>
 
                 <field
                         name="responsive"
                         type="radio"
                         class="btn-group btn-group-yesno"
                         default="1"
-                        label="PLG_CONTENT_YOUTUBEEMBED_FIELD_RESPONSIVE_LABEL"
-                        description="PLG_CONTENT_YOUTUBEEMBED_FIELD_RESPONSIVE_DESC">
+                        label="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_LABEL"
+                        description="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
@@ -48,6 +49,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="OSDonate Module"><![CDATA[http://deploy.ostraining.com/updates/joomla/plg_content_youtubeembed.xml]]></server>
+        <server type="extension" priority="1" name="OSYoutube"><![CDATA[http://deploy.ostraining.com/updates/joomla/plg_content_osyoutube.xml]]></server>
     </updateservers>
 </extension>

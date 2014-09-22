@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="OSYouTube Builder" default="">
+    <property file="../build.global.properties" />
+
+    <import file="${builder.path}/src/build.xml"/>
+</project>
