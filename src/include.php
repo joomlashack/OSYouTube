@@ -12,13 +12,13 @@ defined('_JEXEC') or die();
 
 define('OSYOUTUBE_PLUGIN_PATH', __DIR__);
 
-// Alledia Library
-if (!defined('ALLEDIA_LOADED')) {
-    $allediaLibraryPath = JPATH_SITE . '/libraries/alledia/include.php';
+// Alledia Framework
+if (!defined('ALLEDIA_FRAMEWORK_LOADED')) {
+    $allediaFrameworkPath = JPATH_SITE . '/libraries/allediaframework/include.php';
 
-    if (!file_exists($allediaLibraryPath)) {
-        throw new Exception('Alledia library not found');
+    if (!file_exists($allediaFrameworkPath)) {
+        throw new Exception('Alledia framework not found');
     }
 
-    require_once $allediaLibraryPath;
+    require_once $allediaFrameworkPath;
 }
