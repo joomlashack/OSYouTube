@@ -6,6 +6,8 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
+use Alledia\Joomla\Extension\AbstractPlugin;
+
 defined('_JEXEC') or die();
 
 jimport('joomla.plugin.plugin');
@@ -16,14 +18,13 @@ require_once 'include.php';
  * OSYouTube Content Plugin
  *
  */
-class plgContentOSYoutube extends JPlugin
+class PlgContentOSYoutube extends AbstractPlugin
 {
     public function __construct(&$subject, $config = array())
     {
-        parent::__construct($subject, $config);
+        $this->namespace = 'OSYouTube';
 
-        $lang = JFactory::getLanguage();
-        $lang->load('plg_content_osyoutube.sys', __DIR__);
+        parent::__construct($subject, $config);
     }
 
     /**
@@ -89,7 +90,7 @@ class plgContentOSYoutube extends JPlugin
             'frameborder' => '0'
         );
 
-        if (OSYOUTUBE_PRO) {
+        if ($this->isPro()) {
             $attribs = OSYouTubePro\Embed::setAttributes($params, $attribs);
         }
 
