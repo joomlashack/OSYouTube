@@ -19,6 +19,12 @@
         <filename>style.css</filename>
     </files>
 
+    <element>osyoutube</element>
+
+    <relatedExtensions>
+        <extension>AllediaFramework</extension>
+    </relatedExtensions>
+
     <config>
         <fields name="params">
             <fieldset name="basic">
