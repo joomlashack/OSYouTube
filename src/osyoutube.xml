@@ -10,8 +10,6 @@
     <version>3.0.0</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
-    <element>osyoutube</element>
-
     <files>
         <folder>language</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
