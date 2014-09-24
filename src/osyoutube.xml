@@ -12,6 +12,7 @@
 
     <files>
         <folder>language</folder>
+        <folder>installer</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
         <filename>include.php</filename>
         <filename>style.css</filename>
