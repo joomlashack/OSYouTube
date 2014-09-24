@@ -21,8 +21,14 @@
     <element>osyoutube</element>
 
     <relatedExtensions>
-        <extension>AllediaFramework</extension>
+        <extension
+            type="library"
+            element="allediaframework"
+            uninstall="true">AllediaFramework</extension>
     </relatedExtensions>
+
+    <obsoleteItems />
+
 
     <config>
         <fields name="params">
