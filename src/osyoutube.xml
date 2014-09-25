@@ -10,7 +10,7 @@
     <version>3.0.0</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
-    <scriptfile>script.osyoutube.php</scriptfile>
+    <scriptfile>script.installer.php</scriptfile>
 
     <files>
         <folder>language</folder>
