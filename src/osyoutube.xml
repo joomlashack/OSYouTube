@@ -10,25 +10,26 @@
     <version>3.0.0</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
+    <scriptfile>script.osyoutube.php</scriptfile>
+
     <files>
         <folder>language</folder>
         <folder>installer</folder>
+        <folder>views</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
         <filename>include.php</filename>
         <filename>style.css</filename>
     </files>
 
-    <element>osyoutube</element>
+    <element publish="true">osyoutube</element>
 
     <relatedExtensions>
         <extension
             type="library"
-            element="allediaframework"
-            uninstall="true">AllediaFramework</extension>
+            element="allediaframework">AllediaFramework</extension>
     </relatedExtensions>
 
     <obsoleteItems />
-
 
     <config>
         <fields name="params">
