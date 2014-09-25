@@ -6,8 +6,6 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-use Alledia\Factory;
-
 defined('_JEXEC') or die();
 
 define('OSYOUTUBE_PLUGIN_PATH', __DIR__);

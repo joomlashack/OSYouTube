@@ -10,8 +10,6 @@ use Alledia\Joomla\Extension\AbstractPlugin;
 
 defined('_JEXEC') or die();
 
-jimport('joomla.plugin.plugin');
-
 require_once 'include.php';
 
 /**
