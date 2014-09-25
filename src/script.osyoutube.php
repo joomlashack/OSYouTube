@@ -6,7 +6,8 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
-require 'installer/include.php';
+require_once 'library/installer/include.php';
+
 
 defined('_JEXEC') or die();
 
