@@ -20,15 +20,19 @@
         <filename>style.css</filename>
     </files>
 
-    <element publish="true">osyoutube</element>
+    <alledia>
+        <element publish="true">osyoutube</element>
 
-    <relatedExtensions>
-        <extension
-            type="library"
-            element="allediaframework">AllediaFramework</extension>
-    </relatedExtensions>
+        <namespace>OSYouTube</namespace>
 
-    <obsoleteItems />
+        <relatedExtensions>
+            <extension
+                type="library"
+                element="allediaframework">AllediaFramework</extension>
+        </relatedExtensions>
+
+        <obsoleteItems/>
+    </alledia>
 
     <config>
         <fields name="params">
