@@ -29,6 +29,13 @@
             <extension
                 type="library"
                 element="allediaframework">AllediaFramework</extension>
+
+            <extension
+                type="plugin"
+                group="system"
+                element="oscarootcertificates"
+                publish="true"
+                ordering="first">OSCARootCertificates</extension>
         </relatedExtensions>
 
         <obsoleteItems/>
