@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@ostraining.com</authorEmail>
     <authorUrl>http://www.ostraining.com</authorUrl>
-    <version>3.0.0</version>
+    <version>3.0.1-alpha</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
     <scriptfile>script.installer.php</scriptfile>
