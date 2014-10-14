@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="content" method="upgrade">
-    <name>PLG_CONTENT_OSYOUTUBE</name>
+    <name>plg_content_osyoutube</name>
     <author>OSTraining</author>
     <creationDate>September 18 2014</creationDate>
     <copyright>Copyright (C) 2013-2014 OSTraining.com</copyright>
@@ -73,6 +73,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="OSYoutube"><![CDATA[http://deploy.ostraining.com/updates/joomla/plg_content_osyoutube.xml]]></server>
+        <server type="extension" priority="1" name="OSYoutube"><![CDATA[https://deploy.ostraining.com:3425/joomla/update/free/stable/plg_content_osyoutube]]></server>
     </updateservers>
 </extension>
