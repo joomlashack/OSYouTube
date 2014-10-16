@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="content" method="upgrade">
     <name>plg_content_osyoutube</name>
-    <author>OSTraining</author>
+    <author>Alledia</author>
     <creationDate>September 18 2014</creationDate>
-    <copyright>Copyright (C) 2013-2014 OSTraining.com</copyright>
+    <copyright>Copyright (C) 2014 Alledia.com</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <authorEmail>info@ostraining.com</authorEmail>
-    <authorUrl>http://www.ostraining.com</authorUrl>
+    <authorEmail>hello@alledia.com</authorEmail>
+    <authorUrl>http://www.alledia.com</authorUrl>
     <version>3.0.1-alpha</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
@@ -14,6 +14,7 @@
 
     <files>
         <folder>language</folder>
+        <folder>library</folder>
         <folder>views</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
         <filename>include.php</filename>
@@ -73,6 +74,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="OSYoutube"><![CDATA[https://deploy.ostraining.com:3425/joomla/update/free/stable/plg_content_osyoutube]]></server>
+        <server type="extension" priority="1" name="OSYoutube"><![CDATA[https://deploy.alledia.com/joomla/update/free/stable/plg_content_osyoutube]]></server>
     </updateservers>
 </extension>

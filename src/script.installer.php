@@ -1,8 +1,8 @@
 <?php
 /**
  * @package   OSYouTube
- * @contact   www.ostraining.com, support@ostraining.com
- * @copyright 2013-2014 Open Source Training, LLC. All rights reserved
+ * @contact   www.alledia.com, support@alledia.com
+ * @copyright 2014 Alledia.com, All rights reserved
  * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
