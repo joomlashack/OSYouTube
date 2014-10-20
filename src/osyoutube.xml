@@ -74,6 +74,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="OSYoutube"><![CDATA[https://deploy.alledia.com/joomla/update/free/stable/plg_content_osyoutube]]></server>
+        <server type="extension" priority="1" name="OSYouTube"><![CDATA[https://deploy.ostraining.com/client/update/free/stable/plg_content_osyoutube]]></server>
     </updateservers>
 </extension>
