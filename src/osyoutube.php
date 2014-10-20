@@ -89,7 +89,7 @@ class PlgContentOSYoutube extends AbstractPlugin
         );
 
         if ($this->isPro()) {
-            $attribs = OSYouTubePro\Embed::setAttributes($params, $attribs);
+            $attribs = Alledia\OSYouTube\Pro\Embed::setAttributes($params, $attribs);
         }
 
         $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
