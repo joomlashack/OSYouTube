@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>hello@alledia.com</authorEmail>
     <authorUrl>http://www.alledia.com</authorUrl>
-    <version>3.0.1-alpha</version>
+    <version>3.0.1</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
     <scriptfile>script.installer.php</scriptfile>
