@@ -22,9 +22,9 @@
             <extension
                 type="plugin"
                 group="system"
-                element="oscarootcertificates"
+                element="ossystem"
                 publish="true"
-                ordering="first">OSCARootCertificates</extension>
+                ordering="first">OSSystem</extension>
         </relatedExtensions>
     </alledia>
 

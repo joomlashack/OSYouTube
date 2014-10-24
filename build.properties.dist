@@ -2,4 +2,4 @@ builder.path=/path/to/AllediaBuilder
 
 project.AllediaFramework.path=/path/to/AllediaFramework
 project.AllediaInstaller.path=/path/to/AllediaInstaller
-project.OSCARootCertificates.path=/path/to/OSCARootCertificates
+project.OSSystem.path=/path/to/OSSystem
