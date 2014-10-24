@@ -39,6 +39,8 @@ class PlgContentOSYoutube extends AbstractPlugin
             return true;
         }
 
+        $this->init();
+
         // Note! The order of these expressions matters
         $regex = array(
             '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"]+)[\'"][^>]*>(.+)?(?:</a>)))#',
