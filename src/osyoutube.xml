@@ -10,22 +10,10 @@
     <version>3.0.1</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
-    <scriptfile>script.installer.php</scriptfile>
-
-    <files>
-        <folder>language</folder>
-        <folder>library</folder>
-        <folder>views</folder>
-        <filename plugin="osyoutube">osyoutube.php</filename>
-        <filename>include.php</filename>
-        <filename>style.css</filename>
-    </files>
-
     <alledia>
         <element publish="true">osyoutube</element>
-
         <namespace>OSYouTube</namespace>
-
+        <license>pro</license>
         <relatedExtensions>
             <extension
                 type="library"
@@ -38,9 +26,18 @@
                 publish="true"
                 ordering="first">OSCARootCertificates</extension>
         </relatedExtensions>
-
-        <obsoleteItems/>
     </alledia>
+
+    <scriptfile>script.installer.php</scriptfile>
+
+    <files>
+        <folder>language</folder>
+        <folder>library</folder>
+        <folder>views</folder>
+        <filename plugin="osyoutube">osyoutube.php</filename>
+        <filename>include.php</filename>
+        <filename>style.css</filename>
+    </files>
 
     <config>
         <fields name="params">
