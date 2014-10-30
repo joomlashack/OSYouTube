@@ -82,11 +82,18 @@ class PlgContentOSYoutube extends AbstractPlugin
         if ($query) {
             $vCode .= '?' . http_build_query($query);
         }
-
+        
+        // choose player
+        if ($this->isPro()) {
+            $player = Alledia\OSYouTube\Pro\Embed::setPlayer($params);
+        }else{
+            $player = 'embed';
+        }
+        
         $attribs = array(
             'width'       => $width,
             'height'      => $height,
-            'src'         => '//www.youtube.com/embed/' . $vCode,
+            'src'         => '//www.youtube.com/' . $player . '/' . $vCode,
             'frameborder' => '0'
         );
 
