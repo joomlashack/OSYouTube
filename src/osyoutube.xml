@@ -39,6 +39,11 @@
         <filename>style.css</filename>
     </files>
 
+    <media destination="plg_content_osyoutube" folder="media">
+        <folder>css</folder>
+        <folder>js</folder>
+    </media>
+
     <config>
         <fields name="params">
             <fieldset name="basic">
