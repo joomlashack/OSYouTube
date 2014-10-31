@@ -82,19 +82,12 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
             $vCode = array_shift($query);
             if ($query) {
                 $vCode .= '?' . http_build_query($query);
-        }
-        
-        // choose player
-        if ($this->isPro()) {
-            $player = Alledia\OSYouTube\Pro\Embed::setPlayer($params);
-        }else{
-            $player = 'embed';
             }
 
             $attribs = array(
                 'width'       => $width,
                 'height'      => $height,
-            'src'         => '//www.youtube.com/' . $player . '/' . $vCode,
+                'src'         => '//www.youtube.com/embed/' . $vCode,
                 'frameborder' => '0'
             );
 
