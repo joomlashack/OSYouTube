@@ -13,7 +13,7 @@
     <alledia>
         <element publish="true">osyoutube</element>
         <namespace>OSYouTube</namespace>
-        <license>pro</license>
+        <license>free</license>
         <relatedExtensions>
             <extension
                 type="library"
