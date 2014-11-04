@@ -34,6 +34,7 @@
         <folder>language</folder>
         <folder>library</folder>
         <folder>views</folder>
+        <folder>form</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
         <filename>include.php</filename>
         <filename>style.css</filename>
@@ -42,6 +43,7 @@
     <media destination="plg_content_osyoutube" folder="media">
         <folder>css</folder>
         <folder>js</folder>
+        <folder>images</folder>
     </media>
 
     <config>
