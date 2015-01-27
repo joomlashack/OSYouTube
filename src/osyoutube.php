@@ -44,16 +44,17 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
 
             // Note! The order of these expressions matters
             $regex = array(
-                '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"]+)[\'"][^>]*>(.+)?(?:</a>)))#',
-                '#https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)#'
+                '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#',
+                '#https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)(\#[a-zA-Z0-9-_&;=]*)?#'
             );
 
             foreach ($regex as $r) {
                 if (preg_match_all($r, $article->text, $matches)) {
                     foreach ($matches[0] as $k => $source) {
+                        $urlHash = @$matches[2][$k];
                         $article->text = str_replace(
                             $source,
-                            $this->youtubeCodeEmbed($matches[1][$k]),
+                            $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
                             $article->text
                         );
                     }
@@ -63,7 +64,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
             return true;
         }
 
-        protected function youtubeCodeEmbed($vCode)
+        protected function youtubeCodeEmbed($videoCode, $urlHash = null)
         {
             $output = '';
             $params = $this->params;
@@ -78,21 +79,19 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                 $output .= '<div class="video-responsive">';
             }
 
-            $query = explode('&', htmlspecialchars_decode($vCode));
-            $vCode = array_shift($query);
-            if ($query) {
-                $vCode .= '?' . http_build_query($query);
-            }
+            $query = explode('&', htmlspecialchars_decode($videoCode));
+            $videoCode = array_shift($query);
 
             $attribs = array(
                 'width'       => $width,
                 'height'      => $height,
-                'src'         => '//www.youtube.com/embed/' . $vCode,
                 'frameborder' => '0'
             );
 
             if ($this->isPro()) {
-                $attribs = Alledia\OSYouTube\Pro\Embed::setAttributes($params, $attribs);
+                $attribs['src'] = Alledia\OSYouTube\Pro\Embed::getUrl($params, $videoCode, $query, $urlHash);
+            } else {
+                $attribs['src'] = Alledia\OSYouTube\Free\Embed::getUrl($params, $videoCode, $query, $urlHash);
             }
 
             $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
