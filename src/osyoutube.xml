@@ -73,6 +73,17 @@
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
+
+                <field
+                        name="ignore_html_links"
+                        type="radio"
+                        class="btn-group btn-group-yesno"
+                        default="0"
+                        label="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_LABEL"
+                        description="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
         </fields>
     </config>

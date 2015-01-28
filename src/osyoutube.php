@@ -19,13 +19,9 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
      */
     class PlgContentOSYoutube extends AbstractPlugin
     {
-        public function __construct(&$subject, $config = array())
-        {
-            $this->namespace = 'OSYouTube';
+        protected $namespace = 'OSYouTube';
 
-            parent::__construct($subject, $config);
-        }
-
+        protected $tokenIgnore = '::ignore::';
         /**
          * @param string $context
          * @param object $article
@@ -42,26 +38,50 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
 
             $this->init();
 
-            // Note! The order of these expressions matters
+
+            // Hey, the order of these expressions matters!
             $regex = array(
                 '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#',
-                '#https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)(\#[a-zA-Z0-9-_&;=]*)?#'
+                '#(?<!' . $this->tokenIgnore . ')https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)(\#[a-zA-Z0-9-_&;=]*)?#'
             );
 
-            foreach ($regex as $r) {
+            $ignoreHtmlLinks = $this->params->get('ignore_html_links', 0);
+            foreach ($regex as $i => $r) {
                 if (preg_match_all($r, $article->text, $matches)) {
                     foreach ($matches[0] as $k => $source) {
-                        $urlHash = @$matches[2][$k];
-                        $article->text = str_replace(
-                            $source,
-                            $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
-                            $article->text
-                        );
+                        if ($i == 0 && $ignoreHtmlLinks) {
+                            // Attach the token to ignore the URL
+                            $this->addTokenToIgnoreURL($source, $article->text);
+                        } else {
+                            // Parse the URL
+                            $urlHash = @$matches[2][$k];
+                            $article->text = str_replace(
+                                $source,
+                                $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
+                                $article->text
+                            );
+                        }
                     }
                 }
             }
 
+            // Remove all "ignore" tokens from the text
+            if ($ignoreHtmlLinks) {
+                $this->removeTokensToIgnoreURL($article->text);
+            }
+
             return true;
+        }
+
+        protected function addTokenToIgnoreURL($tag, &$text)
+        {
+            $newTag = preg_replace('#(https?://)#i', $this->tokenIgnore . '$1', $tag);
+            $text   = str_replace($tag, $newTag, $text);
+        }
+
+        protected function removeTokensToIgnoreURL(&$text)
+        {
+            $text = str_replace($this->tokenIgnore, '', $text);
         }
 
         protected function youtubeCodeEmbed($videoCode, $urlHash = null)
