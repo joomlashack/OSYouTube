@@ -50,48 +50,49 @@
         <fields name="params">
             <fieldset name="basic" addfieldpath="/plugins/content/osyoutube/form/fields">
                 <field
-                        name="width"
-                        type="text"
-                        default="425"
-                        label="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_LABEL"
-                        description="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_DESC"/>
+                    name="width"
+                    type="text"
+                    default="425"
+                    label="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_LABEL"
+                    description="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_DESC"/>
 
                 <field
-                        name="height"
-                        type="text"
-                        default="344"
-                        label="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_LABEL"
-                        description="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_DESC"/>
+                    name="height"
+                    type="text"
+                    default="344"
+                    label="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_LABEL"
+                    description="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_DESC"/>
 
                 <field
-                        name="responsive"
-                        type="radio"
-                        class="btn-group btn-group-yesno"
-                        default="1"
-                        label="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_LABEL"
-                        description="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_DESC">
+                    name="responsive"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="1"
+                    label="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_LABEL"
+                    description="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
 
                 <field
-                        name="ignore_html_links"
-                        type="radio"
-                        class="btn-group btn-group-yesno"
-                        default="0"
-                        label="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_LABEL"
-                        description="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_DESC">
+                    name="ignore_html_links"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="0"
+                    label="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_LABEL"
+                    description="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
 
                 <field
-                        type="gopro"
-                        name="allediaplans"
-                        label=""
-                        description=""
-                        class="ost-gopro"
-                        media="plg_content_osyoutube"/>
+                    type="gopro"
+                    name="allediaplans"
+                    label=""
+                    description=""
+                    class="ost-gopro"
+                    media="plg_content_osyoutube" />
+
             </fieldset>
         </fields>
     </config>
