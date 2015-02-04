@@ -87,21 +87,11 @@
                 </field>
 
                 <field
-                    type="gopro"
-                    name="allediaplans"
-                    label=""
-                    description=""
-                    class="ost-gopro"
-                    media="plg_content_osyoutube" />
-
-                <field
-                    type="jedlink"
-                    name="jedlink"
-                    label=""
-                    description=""
-                    class="jed-link"
+                    type="allediafooter"
+                    name="allediafooter"
                     media="plg_content_osyoutube"
-                    url="http://extensions.joomla.org/extensions/extension/social-web/social-media/osyoutube" />
+                    showgoproad="1"
+                    jedurl="http://extensions.joomla.org/extensions/extension/social-web/social-media/osyoutube" />
             </fieldset>
         </fields>
     </config>
