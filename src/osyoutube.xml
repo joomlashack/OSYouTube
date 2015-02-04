@@ -2,7 +2,7 @@
 <extension version="2.5" type="plugin" group="content" method="upgrade">
     <name>plg_content_osyoutube</name>
     <author>Alledia</author>
-    <creationDate>February 3rd, 2015</creationDate>
+    <creationDate>February 4th, 2015</creationDate>
     <copyright>Copyright (C) 2015 Alledia.com</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>support@alledia.com</authorEmail>
