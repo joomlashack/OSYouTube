@@ -87,8 +87,8 @@
                 </field>
 
                 <field
-                    type="allediafooter"
-                    name="allediafooter"
+                    type="customfooter"
+                    name="customfooter"
                     media="plg_content_osyoutube"
                     showgoproad="1"
                     jedurl="http://extensions.joomla.org/extensions/extension/social-web/social-media/osyoutube" />
