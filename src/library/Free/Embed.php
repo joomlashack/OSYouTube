@@ -36,7 +36,7 @@ abstract class Embed
 
     public static function getUrl($params, $videoCode, $query = array(), $hash = null)
     {
-        $url = '//www.youtube.com/embed/' . $videoCode;
+        $url = '//www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
 
         $query = static::buildUrlQuery($params, $query, $videoCode);
 
