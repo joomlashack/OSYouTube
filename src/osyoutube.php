@@ -22,6 +22,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
         protected $namespace = 'OSYouTube';
 
         protected $tokenIgnore = '::ignore::';
+
         /**
          * @param string $context
          * @param object $article
@@ -55,11 +56,24 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                         } else {
                             // Parse the URL
                             $urlHash = @$matches[2][$k];
-                            $article->text = str_replace(
-                                $source,
-                                $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
-                                $article->text
-                            );
+                            if ($ignoreHtmlLinks) {
+                                // Must pay attention to ignored links here
+                                $matchString = '#(?<!' . $this->tokenIgnore . ')' . preg_quote($source, '#') . '#';
+
+                                $article->text = preg_replace(
+                                    $matchString,
+                                    $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
+                                    $article->text
+                                );
+
+                            } else {
+                                // Don't care, do the faster replace
+                                $article->text = str_replace(
+                                    $source,
+                                    $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
+                                    $article->text
+                                );
+                            }
                         }
                     }
                 }
@@ -99,7 +113,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                 $output .= '<div class="video-responsive">';
             }
 
-            $query = explode('&', htmlspecialchars_decode($videoCode));
+            $query     = explode('&', htmlspecialchars_decode($videoCode));
             $videoCode = array_shift($query);
 
             $attribs = array(
