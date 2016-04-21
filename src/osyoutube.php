@@ -55,24 +55,19 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                             $this->addTokenToIgnoreURL($source, $article->text);
                         } else {
                             // Parse the URL
-                            $urlHash = @$matches[2][$k];
+                            $urlHash   = @$matches[2][$k];
+                            $videoCode = $matches[1][$k];
+                            $embedCode = $this->youtubeCodeEmbed($videoCode, $urlHash);
+
                             if ($ignoreHtmlLinks) {
                                 // Must pay attention to ignored links here
                                 $matchString = '#(?<!' . $this->tokenIgnore . ')' . preg_quote($source, '#') . '#';
 
-                                $article->text = preg_replace(
-                                    $matchString,
-                                    $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
-                                    $article->text
-                                );
+                                $article->text = preg_replace($matchString, $embedCode, $article->text);
 
                             } else {
                                 // Don't care, do the faster replace
-                                $article->text = str_replace(
-                                    $source,
-                                    $this->youtubeCodeEmbed($matches[1][$k], $urlHash),
-                                    $article->text
-                                );
+                                $article->text = str_replace($source, $embedCode, $article->text);
                             }
                         }
                     }
