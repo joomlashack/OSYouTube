@@ -10,6 +10,8 @@
     <version>3.1.2</version>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
+    <variant>PRO</variant>
+
     <alledia>
         <element publish="true">osyoutube</element>
         <namespace>OSYouTube</namespace>
