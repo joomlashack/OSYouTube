@@ -87,6 +87,7 @@
         <element publish="true">osyoutube</element>
         <namespace>OSYouTube</namespace>
         <license>free</license>
+        <targetplatform>3.*</targetplatform>
         <relatedExtensions>
             <extension
                 type="library"
