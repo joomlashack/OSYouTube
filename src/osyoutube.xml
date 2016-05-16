@@ -2,12 +2,12 @@
 <extension version="3.5" type="plugin" group="content" method="upgrade">
     <name>plg_content_osyoutube</name>
     <author>Alledia</author>
-    <creationDate>May 12 2016</creationDate>
+    <creationDate>May 16 2016</creationDate>
     <copyright>Copyright (C) 2015 Open Source Training, LLC</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>support@alledia.com</authorEmail>
     <authorUrl>http://www.alledia.com</authorUrl>
-    <version>3.1.4</version>
+    <version>3.2.0</version>
     <variant>FREE</variant>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
