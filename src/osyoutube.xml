@@ -8,28 +8,8 @@
     <authorEmail>support@alledia.com</authorEmail>
     <authorUrl>http://www.alledia.com</authorUrl>
     <version>3.1.4</version>
-    <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
-
     <variant>FREE</variant>
-
-    <alledia>
-        <element publish="true">osyoutube</element>
-        <namespace>OSYouTube</namespace>
-        <license>free</license>
-        <relatedExtensions>
-            <extension
-                type="library"
-                element="allediaframework">AllediaFramework</extension>
-
-            <extension
-                type="plugin"
-                group="system"
-                element="ossystem"
-                publish="true"
-                ordering="first">OSSystem</extension>
-        </relatedExtensions>
-        <include>AllediaFreeDefaultFiles</include>
-    </alledia>
+    <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
     <scriptfile>script.installer.php</scriptfile>
 
@@ -102,4 +82,23 @@
     <updateservers>
         <server type="extension" priority="1" name="OSYouTube"><![CDATA[https://deploy.ostraining.com/client/update/free/stable/plg_content_osyoutube]]></server>
     </updateservers>
+
+    <alledia>
+        <element publish="true">osyoutube</element>
+        <namespace>OSYouTube</namespace>
+        <license>free</license>
+        <relatedExtensions>
+            <extension
+                type="library"
+                element="allediaframework">AllediaFramework</extension>
+
+            <extension
+                type="plugin"
+                group="system"
+                element="ossystem"
+                publish="true"
+                ordering="first">OSSystem</extension>
+        </relatedExtensions>
+        <include>AllediaFreeDefaultFiles</include>
+    </alledia>
 </extension>
