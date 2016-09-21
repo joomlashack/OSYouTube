@@ -1,5 +1,5 @@
 {
-    "name"             : "alledia/osyoutube",
+    "name"             : "joomlashack/osyoutube",
     "description"      : "OSYouTube",
     "minimum-stability": "stable",
     "license"          : "GPL-2+",
@@ -15,8 +15,8 @@
     },
     "authors"          : [
         {
-            "name" : "Alledia",
-            "email": "support@alledia.com"
+            "name" : "Joomlashack",
+            "email": "help@joomlashack.com"
         }
     ],
     "require"          : {
