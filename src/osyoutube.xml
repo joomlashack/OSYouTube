@@ -2,7 +2,7 @@
 <extension version="3.5" type="plugin" group="content" method="upgrade">
     <name>plg_content_osyoutube</name>
     <author>Joomlashack</author>
-    <creationDate>October 12 2016</creationDate>
+    <creationDate>October 31 2016</creationDate>
     <copyright>Copyright (C) 2016 Open Source Training, LLC</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>help@joomlashack.com</authorEmail>
