@@ -123,7 +123,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                 $attribs['src'] = Alledia\OSYouTube\Free\Embed::getUrl($params, $videoCode, $query, $urlHash);
             }
 
-            $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
+            $output .= '<iframe id="youtube_' . $videoCode . '" ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
             if ($responsive) {
                 $output .= '</div>';
