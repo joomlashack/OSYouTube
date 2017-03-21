@@ -41,7 +41,7 @@ abstract class Embed
         $query = static::buildUrlQuery($params, $query, $videoCode);
 
         if (!empty($query)) {
-            $url .= '?' . http_build_query($query);
+            $url .= '&' . http_build_query($query);
         }
 
         if (!empty($hash)) {
