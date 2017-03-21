@@ -112,6 +112,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
             $videoCode = array_shift($query);
 
             $attribs = array(
+                'id'          => 'youtube_' . $videoCode,
                 'width'       => $width,
                 'height'      => $height,
                 'frameborder' => '0'
@@ -123,7 +124,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                 $attribs['src'] = Alledia\OSYouTube\Free\Embed::getUrl($params, $videoCode, $query, $urlHash);
             }
 
-            $output .= '<iframe id="youtube_' . $videoCode . '" ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
+            $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
             if ($responsive) {
                 $output .= '</div>';
