@@ -7,6 +7,7 @@
  */
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
+use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
 
@@ -124,7 +125,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
                 $attribs['src'] = Alledia\OSYouTube\Free\Embed::getUrl($params, $videoCode, $query, $urlHash);
             }
 
-            $output .= '<iframe ' . JArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
+            $output .= '<iframe ' . ArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
             if ($responsive) {
                 $output .= '</div>';
