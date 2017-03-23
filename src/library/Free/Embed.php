@@ -8,10 +8,19 @@
 
 namespace Alledia\OSYouTube\Free;
 
+use Joomla\Registry\Registry;
+
 defined('_JEXEC') or die();
 
 abstract class Embed
 {
+    /**
+     * @param Registry $params
+     * @param array    $query
+     * @param string   $videoCode
+     *
+     * @return array
+     */
     protected static function buildUrlQuery($params, $query, $videoCode = null)
     {
         // Converts the query in an associative array
@@ -34,6 +43,14 @@ abstract class Embed
         return $queryAssoc;
     }
 
+    /**
+     * @param Registry $params
+     * @param string   $videoCode
+     * @param array    $query
+     * @param string   $hash
+     *
+     * @return string
+     */
     public static function getUrl($params, $videoCode, $query = array(), $hash = null)
     {
         $url = 'https://www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
