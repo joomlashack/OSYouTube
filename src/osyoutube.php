@@ -20,9 +20,20 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
      */
     class PlgContentOSYoutube extends AbstractPlugin
     {
+        /**
+         * @var string
+         */
         protected $namespace = 'OSYouTube';
 
+        /**
+         * @var string
+         */
         protected $tokenIgnore = '::ignore::';
+
+        /**
+         * @var int
+         */
+        public static $instance = 0;
 
         /**
          * @param string $context
@@ -39,7 +50,6 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
             }
 
             $this->init();
-
 
             // Hey, the order of these expressions matters!
             $regex = array(
