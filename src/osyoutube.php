@@ -7,6 +7,7 @@
  */
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
+use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
@@ -45,7 +46,7 @@ if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
          */
         public function onContentPrepare($context, &$article, &$params, $page = 0)
         {
-            if (JString::strpos($article->text, '://www.youtube.com/watch') === false) {
+            if (StringHelper::strpos($article->text, '://www.youtube.com/watch') === false) {
                 return true;
             }
 
