@@ -31,7 +31,14 @@ class BasePlugin extends AbstractPlugin
 
         $this->init();
 
-        $this->methods = new Methods($this);
+        $baseMethods = '\\Alledia\\OSYouTube\\%s\\Methods';
+
+        $proMethods = sprintf($baseMethods, 'Pro');
+        if (class_exists($proMethods)) {
+            $this->methods = new $proMethods($this);
+        } else {
+            $this->methods = new Methods($this);
+        }
     }
 
     /**

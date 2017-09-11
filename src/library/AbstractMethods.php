@@ -33,6 +33,9 @@ defined('_JEXEC') or die();
 
 abstract class AbstractMethods
 {
+    const LINK   = 'link';
+    const IGNORE = 'ignore';
+
     /**
      * @var string
      */
@@ -58,38 +61,32 @@ abstract class AbstractMethods
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-        if (StringHelper::strpos($article->text, '://www.youtube.com/watch') === false) {
-            return true;
-        }
-
-        // Hey, the order of these expressions matters!
-        $regex = array(
-            '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#',
-            '#(?<!' . $this->tokenIgnore . ')https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)(\#[a-zA-Z0-9-_&;=]*)?#'
-        );
+        $search = $this->getSearches();
 
         $ignoreHtmlLinks = $this->params->get('ignore_html_links', 0);
-        foreach ($regex as $i => $r) {
-            if (preg_match_all($r, $article->text, $matches)) {
-                foreach ($matches[0] as $k => $source) {
-                    if ($i == 0 && $ignoreHtmlLinks) {
-                        // Attach the token to ignore the URL
-                        $this->addTokenToIgnoreURL($source, $article->text);
-                    } else {
-                        // Parse the URL
-                        $urlHash   = @$matches[2][$k];
-                        $videoCode = $matches[1][$k];
-                        $embedCode = $this->youtubeCodeEmbed($videoCode, $urlHash);
-
-                        if ($ignoreHtmlLinks) {
-                            // Must pay attention to ignored links here
-                            $matchString = '#(?<!' . $this->tokenIgnore . ')' . preg_quote($source, '#') . '#';
-
-                            $article->text = preg_replace($matchString, $embedCode, $article->text);
-
+        foreach ($search as $type => $regexes) {
+            foreach ($regexes as $i => $regex) {
+                if (preg_match_all($regex, $article->text, $matches)) {
+                    foreach ($matches[0] as $k => $source) {
+                        if ($type == 'link' && $ignoreHtmlLinks) {
+                            // Attach the token to ignore the URL
+                            $this->addTokenToIgnoreURL($source, $article->text);
                         } else {
-                            // Don't care, do the faster replace
-                            $article->text = str_replace($source, $embedCode, $article->text);
+                            // Parse the URL
+                            $urlHash   = @$matches[2][$k];
+                            $videoCode = $matches[1][$k];
+                            $embedCode = $this->youtubeCodeEmbed($videoCode, $urlHash);
+
+                            if ($ignoreHtmlLinks) {
+                                // Must pay attention to ignored links here
+                                $matchString = '#(?<!' . $this->tokenIgnore . ')' . preg_quote($source, '#') . '#';
+
+                                $article->text = preg_replace($matchString, $embedCode, $article->text);
+
+                            } else {
+                                // Don't care, do the faster replace
+                                $article->text = str_replace($source, $embedCode, $article->text);
+                            }
                         }
                     }
                 }
@@ -102,6 +99,25 @@ abstract class AbstractMethods
         }
 
         return true;
+    }
+
+    /**
+     * Load the regular expressions to search for in the text
+     *
+     * @return array[]
+     */
+    protected function getSearches()
+    {
+        $searches = array(
+            static::LINK   => array(
+                '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#'
+            ),
+            static::IGNORE => array(
+                '#(?<!' . $this->tokenIgnore . ')https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)(\#[a-zA-Z0-9-_&;=]*)?#'
+            )
+        );
+
+        return $searches;
     }
 
     protected function addTokenToIgnoreURL($tag, &$text)
@@ -186,7 +202,7 @@ abstract class AbstractMethods
      *
      * @return string
      */
-    public static function getUrl($params, $videoCode, $query = array(), $hash = null)
+    protected static function getUrl($params, $videoCode, $query = array(), $hash = null)
     {
         $url = 'https://www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
 
