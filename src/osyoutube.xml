@@ -100,5 +100,10 @@
                 ordering="first">OSSystem</extension>
         </relatedExtensions>
         <include>AllediaFreeDefaultFiles</include>
+
+        <obsolete>
+            <file>/plugins/content/osyoutube/include.php</file>
+            <file>/plugins/content/osyoutube/library/Free/Embed.php</file>
+        </obsolete>
     </alledia>
 </extension>
