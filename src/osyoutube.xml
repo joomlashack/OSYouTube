@@ -19,7 +19,6 @@
         <folder>views</folder>
         <folder>form</folder>
         <filename plugin="osyoutube">osyoutube.php</filename>
-        <filename>include.php</filename>
         <filename>style.css</filename>
     </files>
 
