@@ -18,6 +18,8 @@ if (!defined('ALLEDIA_FRAMEWORK_LOADED')) {
 }
 
 if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
+    \Alledia\Framework\AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
+
     class PlgContentOSYoutube extends \Alledia\OSYouTube\BasePlugin
     {
 
