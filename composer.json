@@ -11,7 +11,7 @@
         "folder"         : "content",
         "client"         : "site",
         "package-license": "free",
-        "target-platform": "3.*"
+        "target-platform": "3.5"
     },
     "authors"          : [
         {
@@ -20,6 +20,6 @@
         }
     ],
     "require"          : {
-        "php"       : ">= 5.3"
+        "php"       : ">= 5.6"
     }
 }
