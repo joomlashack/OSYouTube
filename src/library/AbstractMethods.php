@@ -68,7 +68,7 @@ abstract class AbstractMethods
             foreach ($regexes as $i => $regex) {
                 if (preg_match_all($regex, $article->text, $matches)) {
                     foreach ($matches[0] as $k => $source) {
-                        if ($type == 'link' && $ignoreHtmlLinks) {
+                        if ($type == static::LINK && $ignoreHtmlLinks) {
                             // Attach the token to ignore the URL
                             $this->addTokenToIgnoreURL($source, $article->text);
                         } else {
