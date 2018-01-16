@@ -11,7 +11,7 @@
         "folder"         : "content",
         "client"         : "site",
         "package-license": "free",
-        "target-platform": "3.5"
+        "target-platform": "3.[78]"
     },
     "authors"          : [
         {
