@@ -45,6 +45,10 @@ abstract class AbstractMethods
      */
     protected $params = null;
 
+    /**
+     * AbstractMethods constructor.
+     * @param AbstractPlugin $parent
+     */
     public function __construct(AbstractPlugin $parent)
     {
         $this->params = $parent->params;
@@ -119,17 +123,30 @@ abstract class AbstractMethods
         return $searches;
     }
 
+    /**
+     * @param $tag
+     * @param $text
+     */
     protected function addTokenToIgnoreURL($tag, &$text)
     {
         $newTag = preg_replace('#(https?://)#i', $this->tokenIgnore . '$1', $tag);
         $text   = str_replace($tag, $newTag, $text);
     }
 
+    /**
+     * @param $text
+     */
     protected function removeTokensToIgnoreURL(&$text)
     {
         $text = str_replace($this->tokenIgnore, '', $text);
     }
 
+    /**
+     * @param $videoCode
+     * @param null $urlHash
+     * 
+     * @return string
+     */
     protected function youtubeCodeEmbed($videoCode, $urlHash = null)
     {
         $output = '';
