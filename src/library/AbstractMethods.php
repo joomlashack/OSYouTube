@@ -152,14 +152,12 @@ abstract class AbstractMethods
         // but iframe is loaded in Free, so this is needed here
         $afterLoad = $this->params->get('load_after_page_load', 0);
 
-        $iframeSrc = '';
-        $iframeDataSrc = '';
-
+        $iframeSrc = $this->getUrl($params, $videoCode, $query, $urlHash);
+        
         if ($afterLoad) {
             // This is used as a placeholder for the "Load after page load" feature in Pro
-            $iframeDataSrc = $this->getUrl($params, $videoCode, $query, $urlHash);
-        } else {
-            $iframeSrc = $this->getUrl($params, $videoCode, $query, $urlHash);
+            $iframeDataSrc = $iframeSrc;
+            $iframeSrc = '';
         }
 
         $attribs = array(
@@ -167,9 +165,12 @@ abstract class AbstractMethods
             'width'       => $width,
             'height'      => $height,
             'frameborder' => '0',
-            'src'         => $iframeSrc,
-            'data-src'    => $iframeDataSrc
+            'src'         => $iframeSrc
         );
+        
+        if (!empty($iframeDataSrc)) {
+            $attribs['data-src'] = $iframeDataSrc;
+        }
 
         $output .= '<iframe ' . ArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
