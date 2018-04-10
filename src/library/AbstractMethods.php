@@ -26,7 +26,6 @@ namespace Alledia\OSYouTube;
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use JHtml;
 use Joomla\Registry\Registry;
-use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die();
