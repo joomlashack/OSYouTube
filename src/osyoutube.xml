@@ -32,48 +32,43 @@
     <config>
         <fields name="params">
             <fieldset name="basic" addfieldpath="/plugins/content/osyoutube/form/fields">
-                <field
-                    name="width"
-                    type="text"
-                    default="425"
-                    label="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_LABEL"
-                    description="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_DESC"/>
+                <field name="width"
+                       type="text"
+                       default="425"
+                       label="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_LABEL"
+                       description="PLG_CONTENT_OSYOUTUBE_FIELD_WIDTH_DESC"/>
 
-                <field
-                    name="height"
-                    type="text"
-                    default="344"
-                    label="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_LABEL"
-                    description="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_DESC"/>
+                <field name="height"
+                       type="text"
+                       default="344"
+                       label="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_LABEL"
+                       description="PLG_CONTENT_OSYOUTUBE_FIELD_HEIGHT_DESC"/>
 
-                <field
-                    name="responsive"
-                    type="radio"
-                    class="btn-group btn-group-yesno"
-                    default="1"
-                    label="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_LABEL"
-                    description="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_DESC">
+                <field name="responsive"
+                       type="radio"
+                       class="btn-group btn-group-yesno"
+                       default="1"
+                       label="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_LABEL"
+                       description="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
 
-                <field
-                    name="ignore_html_links"
-                    type="radio"
-                    class="btn-group btn-group-yesno"
-                    default="0"
-                    label="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_LABEL"
-                    description="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_DESC">
+                <field name="ignore_html_links"
+                       type="radio"
+                       class="btn-group btn-group-yesno"
+                       default="0"
+                       label="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_LABEL"
+                       description="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
 
-                <field
-                    type="customfooter"
-                    name="customfooter"
-                    media="plg_content_osyoutube"
-                    showgoproad="1"
-                    jedurl="http://extensions.joomla.org/extensions/extension/social-web/social-media/osyoutube" />
+                <field type="customfooter"
+                       name="customfooter"
+                       media="plg_content_osyoutube"
+                       showgoproad="1"
+                       jedurl="http://extensions.joomla.org/extensions/extension/social-web/social-media/osyoutube"/>
             </fieldset>
         </fields>
     </config>
@@ -90,16 +85,16 @@
         <phpminimum>5.6</phpminimum>
 
         <relatedExtensions>
-            <extension
-                type="library"
-                element="allediaframework">AllediaFramework</extension>
+            <extension type="library"
+                       element="allediaframework">AllediaFramework
+            </extension>
 
-            <extension
-                type="plugin"
-                group="system"
-                element="ossystem"
-                publish="true"
-                ordering="first">OSSystem</extension>
+            <extension type="plugin"
+                       group="system"
+                       element="ossystem"
+                       publish="true"
+                       ordering="first">OSSystem
+            </extension>
         </relatedExtensions>
         <include>AllediaFreeDefaultFiles</include>
 
