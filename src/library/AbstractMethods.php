@@ -51,10 +51,10 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param string $context
-     * @param object $article
-     * @param object $params
-     * @param int    $page
+     * @param string   $context
+     * @param object   $article
+     * @param Registry $params
+     * @param int      $page
      *
      * @return bool
      */
