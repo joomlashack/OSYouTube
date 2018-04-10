@@ -164,13 +164,29 @@ abstract class AbstractMethods
         $query     = explode('&', htmlspecialchars_decode($videoCode));
         $videoCode = array_shift($query);
 
+        // The "Load after page load" feature is only available in Pro
+        // but iframe is loaded in Free, so this is needed here
+        $afterLoad = $this->params->get('load_after_page_load', 0);
+
+        $iframeSrc = $this->getUrl($params, $videoCode, $query, $urlHash);
+        
+        if ($afterLoad) {
+            // This is used as a placeholder for the "Load after page load" feature in Pro
+            $iframeDataSrc = $iframeSrc;
+            $iframeSrc = '';
+        }
+
         $attribs = array(
             'id'          => 'youtube_' . $videoCode,
             'width'       => $width,
             'height'      => $height,
             'frameborder' => '0',
-            'src'         => $this->getUrl($params, $videoCode, $query, $urlHash)
+            'src'         => $iframeSrc
         );
+        
+        if (!empty($iframeDataSrc)) {
+            $attribs['data-src'] = $iframeDataSrc;
+        }
 
         $output .= '<iframe ' . ArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
 
