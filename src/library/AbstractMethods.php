@@ -87,9 +87,11 @@ abstract class AbstractMethods
                             $videoCode = array_shift($query);
 
                             if (stripos($url, '/embed/') === false) {
-                                $url = $this->getUrl($videoCode, $query, $urlHash);
+                                $url = $this->getUrl($url, $videoCode, $query, $urlHash);
                             }
                             $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
+
+                            $embedCode .= '<p>' . $url . '</p>';
 
                             if ($ignoreHtmlLinks) {
                                 // Must pay attention to ignored links here
@@ -236,13 +238,14 @@ abstract class AbstractMethods
     }
 
     /**
+     * @param string $sourceUrl
      * @param string $videoCode
      * @param array  $query
      * @param string $hash
      *
      * @return string
      */
-    protected function getUrl($videoCode, $query = array(), $hash = null)
+    protected function getUrl($sourceUrl, $videoCode, array $query = array(), $hash = null)
     {
         $url = 'https://www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
 
