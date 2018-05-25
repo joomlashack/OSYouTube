@@ -91,8 +91,6 @@ abstract class AbstractMethods
                             }
                             $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
 
-                            $embedCode .= '<p>' . $url . '</p>';
-
                             if ($ignoreHtmlLinks) {
                                 // Must pay attention to ignored links here
                                 $matchString = '#(?<!' . $this->tokenIgnore . ')' . preg_quote($source, '#') . '#';
