@@ -198,13 +198,12 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param Registry $params
      * @param array    $query
      * @param string   $videoCode
      *
      * @return array
      */
-    protected static function buildUrlQuery($params, $query, $videoCode = null)
+    protected function buildUrlQuery($query, $videoCode = null)
     {
         // Converts the query in an associative array
         $queryAssoc = array();
@@ -227,18 +226,17 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param Registry $params
      * @param string   $videoCode
      * @param array    $query
      * @param string   $hash
      *
      * @return string
      */
-    protected static function getUrl($params, $videoCode, $query = array(), $hash = null)
+    protected function getUrl($videoCode, $query = array(), $hash = null)
     {
         $url = 'https://www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
 
-        $query = static::buildUrlQuery($params, $query, $videoCode);
+        $query = $this->buildUrlQuery($query, $videoCode);
 
         if (!empty($query)) {
             $url .= '&' . http_build_query($query);
