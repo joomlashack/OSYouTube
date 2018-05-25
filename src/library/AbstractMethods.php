@@ -174,7 +174,7 @@ abstract class AbstractMethods
         if ($afterLoad) {
             // This is used as a placeholder for the "Load after page load" feature in Pro
             $iframeDataSrc = $iframeSrc;
-            $iframeSrc = '';
+            $iframeSrc     = '';
         }
 
         $attribs = array(
@@ -184,7 +184,7 @@ abstract class AbstractMethods
             'frameborder' => '0',
             'src'         => $iframeSrc
         );
-        
+
         if (!empty($iframeDataSrc)) {
             $attribs['data-src'] = $iframeDataSrc;
         }
@@ -199,8 +199,8 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param array    $query
-     * @param string   $videoCode
+     * @param array  $query
+     * @param string $videoCode
      *
      * @return array
      */
@@ -227,9 +227,9 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param string   $videoCode
-     * @param array    $query
-     * @param string   $hash
+     * @param string $videoCode
+     * @param array  $query
+     * @param string $hash
      *
      * @return string
      */
