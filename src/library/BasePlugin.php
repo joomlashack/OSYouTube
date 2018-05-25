@@ -10,6 +10,7 @@ namespace Alledia\OSYouTube;
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use Alledia\OSYouTube\Free\Methods;
+use Joomla\Registry\Registry;
 
 defined('_JEXEC') or die();
 
@@ -42,10 +43,10 @@ class BasePlugin extends AbstractPlugin
     }
 
     /**
-     * @param string $context
-     * @param object $article
-     * @param object $params
-     * @param int    $page
+     * @param string   $context
+     * @param object   $article
+     * @param Registry $params
+     * @param int      $page
      *
      * @return bool
      */

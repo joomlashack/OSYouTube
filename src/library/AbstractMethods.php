@@ -47,6 +47,7 @@ abstract class AbstractMethods
 
     /**
      * AbstractMethods constructor.
+     *
      * @param AbstractPlugin $parent
      */
     public function __construct(AbstractPlugin $parent)
