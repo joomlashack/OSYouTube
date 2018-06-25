@@ -47,6 +47,7 @@ abstract class AbstractMethods
 
     /**
      * AbstractMethods constructor.
+     *
      * @param AbstractPlugin $parent
      */
     public function __construct(AbstractPlugin $parent)
@@ -70,15 +71,25 @@ abstract class AbstractMethods
         foreach ($search as $type => $regexes) {
             foreach ($regexes as $i => $regex) {
                 if (preg_match_all($regex, $article->text, $matches)) {
+                    $sourcesReplaced = array();
+
                     foreach ($matches[0] as $k => $source) {
                         if ($type == static::LINK && $ignoreHtmlLinks) {
                             // Attach the token to ignore the URL
                             $this->addTokenToIgnoreURL($source, $article->text);
-                        } else {
-                            // Parse the URL
-                            $urlHash   = @$matches[2][$k];
-                            $videoCode = $matches[1][$k];
-                            $embedCode = $this->youtubeCodeEmbed($videoCode, $urlHash);
+
+                        } elseif (!in_array($source, $sourcesReplaced)) {
+                            // Convert to embedded iframe
+                            $url     = $matches[1][$k];
+                            $query   = explode('&', $matches[2][$k]);
+                            $urlHash = $matches[3][$k];
+
+                            $videoCode = array_shift($query);
+
+                            if (stripos($url, '/embed/') === false) {
+                                $url = $this->getUrl($url, $videoCode, $query, $urlHash);
+                            }
+                            $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
 
                             if ($ignoreHtmlLinks) {
                                 // Must pay attention to ignored links here
@@ -90,6 +101,7 @@ abstract class AbstractMethods
                                 // Don't care, do the faster replace
                                 $article->text = str_replace($source, $embedCode, $article->text);
                             }
+                            $sourcesReplaced[] = $source;
                         }
                     }
                 }
@@ -111,12 +123,15 @@ abstract class AbstractMethods
      */
     protected function getSearches()
     {
+        // NB! The /embed/ version MUST be first on these lists
         $searches = array(
             static::LINK   => array(
+                '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/embed/([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#',
                 '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#'
             ),
             static::IGNORE => array(
-                '#(?<!' . $this->tokenIgnore . ')https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+)(\#[a-zA-Z0-9-_&;=]*)?#'
+                '#(?<!' . $this->tokenIgnore . ')(https?://(?:www\.)?youtube.com/embed/([a-zA-Z0-9-_&;=]+))(\#[a-zA-Z0-9-_&;=]*)?#',
+                '#(?<!' . $this->tokenIgnore . ')(https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+))(\#[a-zA-Z0-9-_&;=]*)?#'
             )
         );
 
@@ -142,12 +157,12 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param $videoCode
-     * @param null $urlHash
-     * 
+     * @param string $videoCode
+     * @param string $iframeSrc
+     *
      * @return string
      */
-    protected function youtubeCodeEmbed($videoCode, $urlHash = null)
+    protected function youtubeCodeEmbed($videoCode, $iframeSrc)
     {
         $output = '';
         $params = $this->params;
@@ -161,19 +176,14 @@ abstract class AbstractMethods
             $output .= '<div class="video-responsive">';
         }
 
-        $query     = explode('&', htmlspecialchars_decode($videoCode));
-        $videoCode = array_shift($query);
-
         // The "Load after page load" feature is only available in Pro
         // but iframe is loaded in Free, so this is needed here
         $afterLoad = $this->params->get('load_after_page_load', 0);
 
-        $iframeSrc = $this->getUrl($params, $videoCode, $query, $urlHash);
-        
         if ($afterLoad) {
             // This is used as a placeholder for the "Load after page load" feature in Pro
             $iframeDataSrc = $iframeSrc;
-            $iframeSrc = '';
+            $iframeSrc     = '';
         }
 
         $attribs = array(
@@ -183,7 +193,7 @@ abstract class AbstractMethods
             'frameborder' => '0',
             'src'         => $iframeSrc
         );
-        
+
         if (!empty($iframeDataSrc)) {
             $attribs['data-src'] = $iframeDataSrc;
         }
@@ -198,13 +208,12 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param Registry $params
-     * @param array    $query
-     * @param string   $videoCode
+     * @param array  $query
+     * @param string $videoCode
      *
      * @return array
      */
-    protected static function buildUrlQuery($params, $query, $videoCode = null)
+    protected function buildUrlQuery($query, $videoCode = null)
     {
         // Converts the query in an associative array
         $queryAssoc = array();
@@ -227,18 +236,18 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param Registry $params
-     * @param string   $videoCode
-     * @param array    $query
-     * @param string   $hash
+     * @param string $sourceUrl
+     * @param string $videoCode
+     * @param array  $query
+     * @param string $hash
      *
      * @return string
      */
-    protected static function getUrl($params, $videoCode, $query = array(), $hash = null)
+    protected function getUrl($sourceUrl, $videoCode, array $query = array(), $hash = null)
     {
         $url = 'https://www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
 
-        $query = static::buildUrlQuery($params, $query, $videoCode);
+        $query = $this->buildUrlQuery($query, $videoCode);
 
         if (!empty($query)) {
             $url .= '&' . http_build_query($query);
