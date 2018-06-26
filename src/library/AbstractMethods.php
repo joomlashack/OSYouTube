@@ -81,7 +81,7 @@ abstract class AbstractMethods
                         } elseif (!in_array($source, $sourcesReplaced)) {
                             // Convert to embedded iframe
                             $url     = $matches[1][$k];
-                            $query   = explode('&', $matches[2][$k]);
+                            $query   = explode('&', html_entity_decode($matches[2][$k]));
                             $urlHash = $matches[3][$k];
 
                             $videoCode = array_shift($query);
