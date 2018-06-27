@@ -38,6 +38,21 @@ abstract class AbstractMethods
     protected $params = null;
 
     /**
+     * @var bool
+     */
+    protected $ignoreLinks = false;
+
+    /**
+     * @var string[]
+     */
+    protected $searches = null;
+
+    /**
+     * @var string[]
+     */
+    protected $replacements = null;
+
+    /**
      * @var string[]
      */
     protected $videoIds = array();
@@ -49,7 +64,9 @@ abstract class AbstractMethods
      */
     public function __construct(AbstractPlugin $parent)
     {
-        $this->params = $parent->params;
+        $this->params      = $parent->params;
+        $this->ignoreLinks = $this->params->get('ignore_html_links', 0);
+        $this->searches    = $this->getSearches();
     }
 
     /**
@@ -62,50 +79,70 @@ abstract class AbstractMethods
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-        $search = $this->getSearches();
+        $this->replacements = array();
 
-        $ignoreHtmlLinks = $this->params->get('ignore_html_links', 0);
-        $replacements    = array();
-        foreach ($search as $regex) {
-            $linkRegex = '#(?:<a.*(href)=[\'"])?' . addcslashes($regex, '#') . '(?:[\'"].*>.*</a>)?#';
-
-            if (preg_match_all($linkRegex, $article->text, $matches)) {
-                foreach ($matches[0] as $k => $source) {
-                    $replaceKey = sprintf('{{%s}}', md5($source));
-
-                    if (!isset($replacements[$replaceKey])) {
-                        if ($ignoreHtmlLinks && !empty($matches[1][$k])) {
-                            $replacements[$replaceKey] = $source;
-
-                        } else {
-                            // Convert to embedded iframe
-                            $sourceUrl = $matches[2][$k];
-                            $videoCode = $matches[3][$k];
-                            $query     = html_entity_decode($matches[4][$k]);
-                            $urlHash   = $matches[5][$k];
-
-                            if ($query && $query[0] == '?') {
-                                $query = substr($query, 1);
-                            }
-                            parse_str($query, $query);
-
-                            $url       = $this->getUrl($sourceUrl, $videoCode, $query, $urlHash);
-                            $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
-
-                            $replacements[$replaceKey] = $embedCode;
-                        }
-
-                        $article->text = str_replace($source, $replaceKey, $article->text);
-                    }
-                }
-            }
+        // Do links first to hide them from plain url searches
+        foreach ($this->searches as $regex) {
+            $linkRegex = '#(?:<a.*href=[\'"])' . addcslashes($regex, '#') . '(?:[\'"].*>.*</a>)#';
+            $this->createPlaceholders($linkRegex, $article->text, true);
         }
 
-        if ($replacements) {
-            $article->text = str_replace(array_keys($replacements), $replacements, $article->text);
+        // Now we can safely look for non-link instances
+        foreach ($this->searches as $regex) {
+            $plainRegex = '#' . addcslashes($regex, '#') . '#';
+            $this->createPlaceholders($plainRegex, $article->text);
+        }
+
+        if ($this->replacements) {
+            $article->text = str_replace(array_keys($this->replacements), $this->replacements, $article->text);
         }
 
         return true;
+    }
+
+    /**
+     * Replace matches in the text with placeholders
+     * and add to replacement list for later updating
+     *
+     * @param string $regex
+     * @param string $text
+     * @param bool   $links
+     *
+     * @return void
+     */
+    protected function createPlaceholders($regex, &$text, $links = false)
+    {
+        if (preg_match_all($regex, $text, $matches)) {
+            foreach ($matches[0] as $k => $source) {
+                $sourceUrl = $matches[1][$k];
+                $videoCode = $matches[2][$k];
+                $query     = html_entity_decode($matches[3][$k]);
+                $hash      = $matches[4][$k];
+
+                $replaceKey = sprintf('{{%s}}', md5($source));
+
+                if (!isset($this->replacements[$replaceKey])) {
+                    if ($this->ignoreLinks && $links) {
+                        // Hide the link temporarily to avoid crashes
+                        $this->replacements[$replaceKey] = $source;
+
+                    } else {
+                        // Convert to embedded iframe
+                        if ($query && $query[0] == '?') {
+                            $query = substr($query, 1);
+                        }
+                        parse_str($query, $query);
+
+                        $url       = $this->getUrl($sourceUrl, $videoCode, $query, $hash);
+                        $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
+
+                        $this->replacements[$replaceKey] = $embedCode;
+                    }
+
+                    $text = str_replace($source, $replaceKey, $text);
+                }
+            }
+        }
     }
 
     /**
