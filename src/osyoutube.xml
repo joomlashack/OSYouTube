@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>help@joomlashack.com</authorEmail>
     <authorUrl>http://www.joomlashack.com</authorUrl>
-    <version>3.3.9</version>
+    <version>3.3.10</version>
     <variant>FREE</variant>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
 
@@ -74,8 +74,7 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="OSYouTube">
-            <![CDATA[https://deploy.ostraining.com/client/update/free/stable/plg_content_osyoutube]]></server>
+        <server type="extension" priority="1" name="OSYouTube"><![CDATA[https://deploy.ostraining.com/client/update/free/stable/plg_content_osyoutube]]></server>
     </updateservers>
 
     <alledia>
