@@ -29,9 +29,9 @@
         <folder>fonts</folder>
     </media>
 
-    <config>
+    <config addfieldpath="/plugins/content/osyoutube/form/fields">
         <fields name="params">
-            <fieldset name="basic" addfieldpath="/plugins/content/osyoutube/form/fields">
+            <fieldset name="basic">
                 <field name="width"
                        type="text"
                        default="425"
