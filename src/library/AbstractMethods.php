@@ -38,6 +38,11 @@ abstract class AbstractMethods
     protected $params = null;
 
     /**
+     * @var string[]
+     */
+    protected $videoIds = array();
+
+    /**
      * AbstractMethods constructor.
      *
      * @param AbstractPlugin $parent
@@ -148,8 +153,15 @@ abstract class AbstractMethods
             $iframeSrc     = '';
         }
 
+        $id = 'youtube_' . $videoCode;
+        if (!empty($this->videoIds[$videoCode])) {
+            $id .= '_' . ($this->videoIds[$videoCode]++);
+        } else {
+            $this->videoIds[$videoCode] = 1;
+        }
+
         $attribs = array(
-            'id'          => 'youtube_' . $videoCode,
+            'id'          => $id,
             'width'       => $width,
             'height'      => $height,
             'frameborder' => '0',
