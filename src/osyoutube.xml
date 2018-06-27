@@ -86,15 +86,13 @@
 
         <relatedExtensions>
             <extension type="library"
-                       element="allediaframework"
-            >AllediaFramework</extension>
+                       element="allediaframework">AllediaFramework</extension>
 
             <extension type="plugin"
                        group="system"
                        element="ossystem"
                        publish="true"
-                       ordering="first"
-            >OSSystem</extension>
+                       ordering="first">OSSystem</extension>
         </relatedExtensions>
 
         <include>AllediaFreeDefaultFiles</include>
