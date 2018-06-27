@@ -67,8 +67,8 @@
                 <field type="customfooter"
                        name="customfooter"
                        media="plg_content_osyoutube"
-                       showgoproad="1"
-                       jedurl="http://extensions.joomla.org/extensions/extension/social-web/social-media/osyoutube"/>
+                       showgoproad="https://www.joomlashack.com/joomla-extensions/osyoutube/"
+                       jedurl="https://extensions.joomla.org/extension/osyoutube/"/>
             </fieldset>
         </fields>
     </config>
