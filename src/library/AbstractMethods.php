@@ -32,14 +32,6 @@ defined('_JEXEC') or die();
 
 abstract class AbstractMethods
 {
-    const LINK   = 'link';
-    const IGNORE = 'ignore';
-
-    /**
-     * @var string
-     */
-    protected $tokenIgnore = '::ignore::';
-
     /**
      * @var Registry
      */
@@ -68,49 +60,44 @@ abstract class AbstractMethods
         $search = $this->getSearches();
 
         $ignoreHtmlLinks = $this->params->get('ignore_html_links', 0);
-        foreach ($search as $type => $regexes) {
-            foreach ($regexes as $i => $regex) {
-                if (preg_match_all($regex, $article->text, $matches)) {
-                    $sourcesReplaced = array();
+        $replacements    = array();
+        foreach ($search as $regex) {
+            $linkRegex = '#(?:<a.*(href)=[\'"])?' . addcslashes($regex, '#') . '(?:[\'"].*>.*</a>)?#';
 
-                    foreach ($matches[0] as $k => $source) {
-                        if ($type == static::LINK && $ignoreHtmlLinks) {
-                            // Attach the token to ignore the URL
-                            $this->addTokenToIgnoreURL($source, $article->text);
+            if (preg_match_all($linkRegex, $article->text, $matches)) {
+                foreach ($matches[0] as $k => $source) {
+                    $replaceKey = sprintf('{{%s}}', md5($source));
 
-                        } elseif (!in_array($source, $sourcesReplaced)) {
+                    if (!isset($replacements[$replaceKey])) {
+                        if ($ignoreHtmlLinks && !empty($matches[1][$k])) {
+                            $replacements[$replaceKey] = $source;
+
+                        } else {
                             // Convert to embedded iframe
-                            $url     = $matches[1][$k];
-                            $query   = explode('&', html_entity_decode($matches[2][$k]));
-                            $urlHash = $matches[3][$k];
+                            $sourceUrl = $matches[2][$k];
+                            $videoCode = $matches[3][$k];
+                            $query     = html_entity_decode($matches[4][$k]);
+                            $urlHash   = $matches[5][$k];
 
-                            $videoCode = array_shift($query);
-
-                            if (stripos($url, '/embed/') === false) {
-                                $url = $this->getUrl($url, $videoCode, $query, $urlHash);
+                            if ($query && $query[0] == '?') {
+                                $query = substr($query, 1);
                             }
+                            parse_str($query, $query);
+
+                            $url       = $this->getUrl($sourceUrl, $videoCode, $query, $urlHash);
                             $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
 
-                            if ($ignoreHtmlLinks) {
-                                // Must pay attention to ignored links here
-                                $matchString = '#(?<!' . $this->tokenIgnore . ')' . preg_quote($source, '#') . '#';
-
-                                $article->text = preg_replace($matchString, $embedCode, $article->text);
-
-                            } else {
-                                // Don't care, do the faster replace
-                                $article->text = str_replace($source, $embedCode, $article->text);
-                            }
-                            $sourcesReplaced[] = $source;
+                            $replacements[$replaceKey] = $embedCode;
                         }
+
+                        $article->text = str_replace($source, $replaceKey, $article->text);
                     }
                 }
             }
         }
 
-        // Remove all "ignore" tokens from the text
-        if ($ignoreHtmlLinks) {
-            $this->removeTokensToIgnoreURL($article->text);
+        if ($replacements) {
+            $article->text = str_replace(array_keys($replacements), $replacements, $article->text);
         }
 
         return true;
@@ -119,41 +106,16 @@ abstract class AbstractMethods
     /**
      * Load the regular expressions to search for in the text
      *
-     * @return array[]
+     * @return array
      */
     protected function getSearches()
     {
-        // NB! The /embed/ version MUST be first on these lists
         $searches = array(
-            static::LINK   => array(
-                '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/embed/([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#',
-                '#(?:<a.*?href=["\'](?:https?://(?:www\.)?youtube.com/watch\?v=([^\'"\#]+)(\#[^\'"\#]*)?[\'"][^>]*>(.+)?(?:</a>)))#'
-            ),
-            static::IGNORE => array(
-                '#(?<!' . $this->tokenIgnore . ')(https?://(?:www\.)?youtube.com/embed/([a-zA-Z0-9-_&;=]+))(\#[a-zA-Z0-9-_&;=]*)?#',
-                '#(?<!' . $this->tokenIgnore . ')(https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_&;=]+))(\#[a-zA-Z0-9-_&;=]*)?#'
-            )
+            '(https?://(?:www\.)?youtube.com/embed/([a-zA-Z0-9-_&;=]+))(\?[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?',
+            '(https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_;]+))(&[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?'
         );
 
         return $searches;
-    }
-
-    /**
-     * @param $tag
-     * @param $text
-     */
-    protected function addTokenToIgnoreURL($tag, &$text)
-    {
-        $newTag = preg_replace('#(https?://)#i', $this->tokenIgnore . '$1', $tag);
-        $text   = str_replace($tag, $newTag, $text);
-    }
-
-    /**
-     * @param $text
-     */
-    protected function removeTokensToIgnoreURL(&$text)
-    {
-        $text = str_replace($this->tokenIgnore, '', $text);
     }
 
     /**
@@ -208,34 +170,6 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param array  $query
-     * @param string $videoCode
-     *
-     * @return array
-     */
-    protected function buildUrlQuery($query, $videoCode = null)
-    {
-        // Converts the query in an associative array
-        $queryAssoc = array();
-
-        if (!empty($query)) {
-            foreach ($query as $key => $value) {
-                if (is_numeric($key)) {
-                    $value = explode('=', $value);
-
-                    if (!isset($value[1])) {
-                        $queryAssoc[$value[0]] = 'true';
-                    } else {
-                        $queryAssoc[$value[0]] = $value[1];
-                    }
-                }
-            }
-        }
-
-        return $queryAssoc;
-    }
-
-    /**
      * @param string $sourceUrl
      * @param string $videoCode
      * @param array  $query
@@ -245,17 +179,14 @@ abstract class AbstractMethods
      */
     protected function getUrl($sourceUrl, $videoCode, array $query = array(), $hash = null)
     {
-        $url = 'https://www.youtube.com/embed/' . $videoCode . '?wmode=transparent';
+        $query = array_merge(array('wmode' => 'transparent'), $query);
 
-        $query = $this->buildUrlQuery($query, $videoCode);
-
-        if (!empty($query)) {
-            $url .= '&' . http_build_query($query);
-        }
-
-        if (!empty($hash)) {
-            $url .= $hash;
-        }
+        $url = sprintf(
+            'https://www.youtube.com/embed/%s?%s%s',
+            $videoCode,
+            http_build_query($query),
+            $hash
+        );
 
         return $url;
     }
