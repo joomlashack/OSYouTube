@@ -111,7 +111,7 @@ abstract class AbstractMethods
         $this->replacements = array();
 
         // Hide any youtube links already embedded with <iframe>
-        if (preg_match_all('#<iframe.*src=["\']\S*youtube\.com.*</iframe>#', $article->text, $iframes)) {
+        if (preg_match_all('#<iframe.*src=["\']\S*youtube\S*\.com.*</iframe>#', $article->text, $iframes)) {
             foreach ($iframes[0] as $source) {
                 $this->addLogEntry('Skipped iframe: ' . $source);
 
