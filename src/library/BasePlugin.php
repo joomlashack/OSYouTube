@@ -10,6 +10,7 @@ namespace Alledia\OSYouTube;
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use Alledia\OSYouTube\Free\Methods;
+use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
 
 defined('_JEXEC') or die();
@@ -26,6 +27,12 @@ class BasePlugin extends AbstractPlugin
      */
     protected $methods = null;
 
+    /**
+     * BasePlugin constructor.
+     *
+     * @param Dispatcher $subject
+     * @param array      $config
+     */
     public function __construct($subject, array $config = array())
     {
         parent::__construct($subject, $config);
