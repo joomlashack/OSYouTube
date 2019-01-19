@@ -193,10 +193,10 @@ abstract class AbstractMethods
 
                     } else {
                         // Convert to embedded iframe
-                        if ($query && $query[0] == '?') {
-                            $query = substr($query, 1);
+                        if ($querString && $querString[0] == '?') {
+                            $querString = substr($querString, 1);
                         }
-                        parse_str($query, $query);
+                        parse_str($querString, $query);
 
                         $url       = $this->getUrl($sourceUrl, $videoCode, $query, $hash);
                         $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
