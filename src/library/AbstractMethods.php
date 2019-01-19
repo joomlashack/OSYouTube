@@ -1,9 +1,9 @@
 <?php
 /**
- * @package    OSYouTube
- * @contact    www.joomlashack.com, help@joomlashack.com
- * @copyright  2017-2018 Open Source Training, LLC. All rights reserved
- * @license    http://www.gnu.org/licenses/gpl.html GNU/GPL
+ * @package   OSYouTube
+ * @contact   www.joomlashack.com, help@joomlashack.com
+ * @copyright 2017-2018 Joomlashack.com. All rights reserved
+ * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
  *
  * This file is part of OSYouTube.
  *
