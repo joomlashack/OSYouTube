@@ -24,6 +24,8 @@
 namespace Alledia\OSYouTube;
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
+use Exception;
+use JFactory;
 use JHtml;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
@@ -58,6 +60,26 @@ abstract class AbstractMethods
     protected $videoIds = array();
 
     /**
+     * @var array
+     */
+    protected $debugLog = array();
+
+    /**
+     * @var array
+     */
+    protected $renderedLogs = array();
+
+    /**
+     * @var int
+     */
+    protected static $instance = 0;
+
+    /**
+     * @var int
+     */
+    protected $called = 0;
+
+    /**
      * AbstractMethods constructor.
      *
      * @param AbstractPlugin $parent
@@ -67,6 +89,8 @@ abstract class AbstractMethods
         $this->params      = $parent->params;
         $this->ignoreLinks = $this->params->get('ignore_html_links', 0);
         $this->searches    = $this->getSearches();
+
+        static::$instance++;
     }
 
     /**
@@ -79,14 +103,22 @@ abstract class AbstractMethods
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
+        $this->called++;
+        $this->addLogEntry('OSYoutube BEGIN - ' . $context, true);
+        $this->addLogEntry('Caller: ' . $this->getCaller());
+        $this->addLogEntry('Hash: ' . md5($article->text));
+
         $this->replacements = array();
 
         // Hide any youtube links already embedded with <iframe>
         if (preg_match_all('#<iframe.*src=["\']\S*youtube\.com.*</iframe>#', $article->text, $iframes)) {
             foreach ($iframes[0] as $source) {
+                $this->addLogEntry('Skipped iframe: ' . $source);
+
                 $replaceKey = sprintf('{{%s}}', md5($source));
                 if (!isset($this->replacements[$replaceKey])) {
                     $this->replacements[$replaceKey] = $source;
+
                     $article->text = str_replace($source, $replaceKey, $article->text);
                 }
             }
@@ -108,7 +140,26 @@ abstract class AbstractMethods
             $article->text = str_replace(array_keys($this->replacements), $this->replacements, $article->text);
         }
 
+        $this->addLogEntry('Hash: ' . md5($article->text));
+        $this->addLogEntry('OSYoutube END - ' . $context, true);
+        if ($this->params->get('debug')) {
+            $article->text .= $this->renderDebugLog();
+        }
+
         return true;
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function onAfterRender()
+    {
+        if ($this->renderedLogs) {
+            $app = JFactory::getApplication();
+
+            $app->setBody(str_replace(array_keys($this->renderedLogs), $this->renderedLogs, $app->getBody()));
+        }
     }
 
     /**
@@ -124,11 +175,14 @@ abstract class AbstractMethods
     protected function createPlaceholders($regex, &$text, $links = false)
     {
         if (preg_match_all($regex, $text, $matches)) {
+            $this->addLogEntry($links ? 'Hide Links' : 'Create embed code');
             foreach ($matches[0] as $k => $source) {
-                $sourceUrl = $matches[1][$k];
-                $videoCode = $matches[2][$k];
-                $query     = html_entity_decode($matches[3][$k]);
-                $hash      = $matches[4][$k];
+                $this->addLogEntry('Source: ' . $source);
+
+                $sourceUrl  = $matches[1][$k];
+                $videoCode  = $matches[2][$k];
+                $querString = html_entity_decode($matches[3][$k]);
+                $hash       = $matches[4][$k];
 
                 $replaceKey = sprintf('{{%s}}', md5($source));
 
@@ -148,6 +202,8 @@ abstract class AbstractMethods
                         $embedCode = $this->youtubeCodeEmbed($videoCode, $url);
 
                         $this->replacements[$replaceKey] = $embedCode;
+
+                        $this->addLogEntry('Embed: ' . $embedCode);
                     }
 
                     $text = str_replace($source, $replaceKey, $text);
@@ -249,5 +305,80 @@ abstract class AbstractMethods
         );
 
         return $url;
+    }
+
+    /**
+     * @param string $message
+     * @param bool   $heading
+     * @param bool   $prepend
+     */
+    protected function addLogEntry($message, $heading = false, $prepend = false)
+    {
+        if ($heading) {
+            $entry = sprintf('*** %s (%03d/%03d) ***', $message, static::$instance, $this->called);
+
+        } else {
+            $entry = $message;
+        }
+
+        $key = md5(static::$instance . '.' . $this->called);
+
+        if (!isset($this->debugLog[$key])) {
+            $this->debugLog[$key] = array();
+        }
+
+        if ($prepend) {
+            array_unshift($this->debugLog[$key], $entry);
+
+        } else {
+            $this->debugLog[$key][] = $entry;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function renderDebugLog($reset = true)
+    {
+        $renderedLog = '';
+
+        foreach ($this->debugLog as $entries) {
+            $renderedLog .= '<ul><li>' . join('</li><li>', array_map('htmlspecialchars', $entries)) . '</li></ul>';
+        }
+
+        if ($reset) {
+            $this->debugLog = array();
+        }
+
+        $renderKey                      = md5($renderedLog);
+        $this->renderedLogs[$renderKey] = $renderedLog;
+        return "\n" . $renderKey;
+    }
+
+    /**
+     * Attempt to retrieve a useful originator of the invocation
+     * Assumed stack under normal circumstances:
+     *
+     * 0. self::getCaller
+     * 1. self::onContentPrepare
+     * 2. Pro\Methods\onContentPrepare (So free version will be off
+     * 3. BasePlugin::onContentPrepare
+     * 4. \JEvent::update
+     * 5. \JEventDispatcher::trigger
+     *
+     * @param int $stackIndex
+     *
+     * @return string
+     */
+    protected function getCaller($stackIndex = 6)
+    {
+        $stackItem = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[$stackIndex];
+
+        $caller = (empty($stackItem['class']) ? '' : $stackItem['class'])
+            . (empty($stackItem['function']) ? '' : '::' . $stackItem['function'] . '() ')
+            . (empty($stackItem['file']) ? '' : ' - ' . str_replace(JPATH_SITE . '/', '', $stackItem['file']))
+            . (empty($stackItem['line']) ? '' : ':' . $stackItem['line']);
+
+        return $caller;
     }
 }

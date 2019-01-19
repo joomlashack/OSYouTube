@@ -10,6 +10,7 @@ namespace Alledia\OSYouTube;
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use Alledia\OSYouTube\Free\Methods;
+use Exception;
 use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
 
@@ -60,5 +61,14 @@ class BasePlugin extends AbstractPlugin
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
         return $this->methods->onContentPrepare($context, $article, $params, $page);
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function onAfterRender()
+    {
+        $this->methods->onAfterRender();
     }
 }
