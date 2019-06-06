@@ -101,7 +101,7 @@ abstract class AbstractMethods
      *
      * @return bool
      */
-    public function onContentPrepare($context, &$article, &$params, $page = 0)
+    public function onContentPrepare($context, $article, $params, $page = 0)
     {
         $this->called++;
         $this->addLogEntry('OSYoutube BEGIN - ' . $context, true);
@@ -276,7 +276,7 @@ abstract class AbstractMethods
             $attribs['data-src'] = $iframeDataSrc;
         }
 
-        $output .= '<iframe ' . ArrayHelper::toString($attribs) . ' allowfullscreen></iframe>';
+        $output .= sprintf('<iframe %s allowfullscreen></iframe>', ArrayHelper::toString($attribs));
 
         if ($responsive) {
             $output .= '</div>';
@@ -336,6 +336,8 @@ abstract class AbstractMethods
     }
 
     /**
+     * @param bool $reset
+     *
      * @return string
      */
     protected function renderDebugLog($reset = true)
@@ -350,8 +352,10 @@ abstract class AbstractMethods
             $this->debugLog = array();
         }
 
-        $renderKey                      = md5($renderedLog);
+        $renderKey = md5($renderedLog);
+
         $this->renderedLogs[$renderKey] = $renderedLog;
+
         return "\n" . $renderKey;
     }
 

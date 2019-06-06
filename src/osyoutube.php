@@ -21,6 +21,9 @@
  * along with OSYouTube.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Alledia\Framework\AutoLoader;
+use Alledia\OSYouTube\BasePlugin;
+
 defined('_JEXEC') or die();
 
 // Alledia Framework
@@ -33,9 +36,9 @@ if (!defined('ALLEDIA_FRAMEWORK_LOADED')) {
 }
 
 if (defined('ALLEDIA_FRAMEWORK_LOADED')) {
-    \Alledia\Framework\AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
+    AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
 
-    class PlgContentOSYoutube extends \Alledia\OSYouTube\BasePlugin
+    class PlgContentOSYoutube extends BasePlugin
     {
 
     }

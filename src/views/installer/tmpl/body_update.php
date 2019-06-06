@@ -1,1 +1,2 @@
-<?php include 'body_default.php'; ?>
+<?php
+include 'body_default.php';
