@@ -254,7 +254,7 @@ abstract class AbstractMethods
         if ($afterLoad) {
             // This is used as a placeholder for the "Load after page load" feature in Pro
             $iframeDataSrc = $iframeSrc;
-            $iframeSrc     = '';
+            $iframeSrc     = 'plugins/content/osyoutube/index.html';
         }
 
         $id = 'youtube_' . $videoCode;
