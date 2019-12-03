@@ -247,8 +247,10 @@ abstract class AbstractMethods
             $output .= '<div class="video-responsive">';
         }
 
-        // The "Load after page load" feature is only available in Pro
-        // but iframe is loaded in Free, so this is needed here
+        /*
+         * The "Load after page load" feature is only available in Pro
+         * but iframe is loaded in Free, so this is needed here
+         */
         $afterLoad = $this->params->get('load_after_page_load', 0);
 
         if ($afterLoad) {
