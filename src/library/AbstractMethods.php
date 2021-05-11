@@ -25,8 +25,8 @@ namespace Alledia\OSYouTube;
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use Exception;
-use JFactory;
-use JHtml;
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
@@ -57,17 +57,17 @@ abstract class AbstractMethods
     /**
      * @var string[]
      */
-    protected $videoIds = array();
+    protected $videoIds = [];
 
     /**
      * @var array
      */
-    protected $debugLog = array();
+    protected $debugLog = [];
 
     /**
      * @var array
      */
-    protected $renderedLogs = array();
+    protected $renderedLogs = [];
 
     /**
      * @var int
@@ -108,7 +108,7 @@ abstract class AbstractMethods
         $this->addLogEntry('Caller: ' . $this->getCaller());
         $this->addLogEntry('Hash: ' . md5($article->text));
 
-        $this->replacements = array();
+        $this->replacements = [];
 
         // Hide any youtube links already embedded with <iframe>
         if (preg_match_all('#<iframe.*src=["\']\S*youtube\S*\.com.*</iframe>#', $article->text, $iframes)) {
@@ -156,7 +156,7 @@ abstract class AbstractMethods
     public function onAfterRender()
     {
         if ($this->renderedLogs) {
-            $app = JFactory::getApplication();
+            $app = Factory::getApplication();
 
             $app->setBody(str_replace(array_keys($this->renderedLogs), $this->renderedLogs, $app->getBody()));
         }
@@ -219,12 +219,10 @@ abstract class AbstractMethods
      */
     protected function getSearches()
     {
-        $searches = array(
+        return [
             '(https?://(?:www\.)?youtube.com/embed/([a-zA-Z0-9-_&;=]+))(\?[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?',
             '(https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_;]+))(&[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?'
-        );
-
-        return $searches;
+        ];
     }
 
     /**
@@ -243,7 +241,7 @@ abstract class AbstractMethods
         $responsive = $params->get('responsive', 1);
 
         if ($responsive) {
-            JHtml::_('stylesheet', 'plugins/content/osyoutube/style.css');
+            HTMLHelper::_('stylesheet', 'plugins/content/osyoutube/style.css');
             $output .= '<div class="video-responsive">';
         }
 
@@ -266,13 +264,13 @@ abstract class AbstractMethods
             $this->videoIds[$videoCode] = 1;
         }
 
-        $attribs = array(
+        $attribs = [
             'id'          => $id,
             'width'       => $width,
             'height'      => $height,
             'frameborder' => '0',
             'src'         => $iframeSrc
-        );
+        ];
 
         if (!empty($iframeDataSrc)) {
             $attribs['data-src'] = $iframeDataSrc;
@@ -295,18 +293,16 @@ abstract class AbstractMethods
      *
      * @return string
      */
-    protected function getUrl($sourceUrl, $videoCode, array $query = array(), $hash = null)
+    protected function getUrl($sourceUrl, $videoCode, array $query = [], $hash = null)
     {
-        $query = array_merge(array('wmode' => 'transparent'), $query);
+        $query = array_merge(['wmode' => 'transparent'], $query);
 
-        $url = sprintf(
+        return sprintf(
             'https://www.youtube.com/embed/%s?%s%s',
             $videoCode,
             http_build_query($query),
             $hash
         );
-
-        return $url;
     }
 
     /**
@@ -326,7 +322,7 @@ abstract class AbstractMethods
         $key = md5(static::$instance . '.' . $this->called);
 
         if (!isset($this->debugLog[$key])) {
-            $this->debugLog[$key] = array();
+            $this->debugLog[$key] = [];
         }
 
         if ($prepend) {
@@ -351,7 +347,7 @@ abstract class AbstractMethods
         }
 
         if ($reset) {
-            $this->debugLog = array();
+            $this->debugLog = [];
         }
 
         $renderKey = md5($renderedLog);
@@ -380,11 +376,9 @@ abstract class AbstractMethods
     {
         $stackItem = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[$stackIndex];
 
-        $caller = (empty($stackItem['class']) ? '' : $stackItem['class'])
+        return (empty($stackItem['class']) ? '' : $stackItem['class'])
             . (empty($stackItem['function']) ? '' : '::' . $stackItem['function'] . '() ')
             . (empty($stackItem['file']) ? '' : ' - ' . str_replace(JPATH_SITE . '/', '', $stackItem['file']))
             . (empty($stackItem['line']) ? '' : ':' . $stackItem['line']);
-
-        return $caller;
     }
 }
