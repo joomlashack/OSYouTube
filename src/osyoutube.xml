@@ -101,7 +101,7 @@
         <namespace>OSYouTube</namespace>
         <license>free</license>
         <targetplatform>3.7</targetplatform>
-        <phpminimum>5.6</phpminimum>
+        <phpminimum>7.2.5</phpminimum>
 
         <relatedExtensions>
             <extension type="library"
@@ -117,8 +117,8 @@
         <include>AllediaFreeDefaultFiles</include>
 
         <obsolete>
-            <file>/plugins/content/osyoutube/include.php</file>
             <file>/plugins/content/osyoutube/library/Free/Embed.php</file>
+            <file>/plugins/content/osyoutube/style.css</file>
         </obsolete>
     </alledia>
 </extension>
