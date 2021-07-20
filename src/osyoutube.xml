@@ -2,14 +2,14 @@
 <extension version="3.7" type="plugin" group="content" method="upgrade">
     <name>plg_content_osyoutube</name>
     <author>Joomlashack</author>
-    <creationDate>May 12 2021</creationDate>
-    <copyright>Copyright 2016-2020 Joomlashack.com</copyright>
-    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>help@joomlashack.com</authorEmail>
-    <authorUrl>http://www.joomlashack.com</authorUrl>
-    <version>3.3.18</version>
-    <variant>FREE</variant>
+    <authorUrl>https://www.joomlashack.com/</authorUrl>
+    <copyright>Copyright 2016-2021 Joomlashack.com</copyright>
+    <license>GNU GPL; see LICENSE file</license>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
+    <version>3.3.18</version>
+    <creationDate>May 12 2021</creationDate>
+    <variant>FREE</variant>
 
     <scriptfile>script.installer.php</scriptfile>
 
