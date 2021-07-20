@@ -30,6 +30,6 @@ use Alledia\Installer\AbstractScript;
 /**
  * Custom installer script
  */
-class PlgContentOSYouTubeInstallerScript extends AbstractScript
+class PlgContentOsyoutubeInstallerScript extends AbstractScript
 {
 }

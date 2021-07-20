@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.7" type="plugin" group="content" method="upgrade">
-    <name>plg_content_osyoutube</name>
+<extension type="plugin" group="content" method="upgrade">
+    <name>PLG_CONTENT_OSYOUTUBE</name>
     <author>Joomlashack</author>
     <authorEmail>help@joomlashack.com</authorEmail>
     <authorUrl>https://www.joomlashack.com/</authorUrl>
@@ -13,14 +13,19 @@
 
     <scriptfile>script.installer.php</scriptfile>
 
+    <media destination="plg_content_osyoutube" folder="media">
+        <folder>css</folder>
+    </media>
+
     <files>
         <folder>language</folder>
         <folder>library</folder>
         <folder>views</folder>
         <folder>form</folder>
+
         <filename plugin="osyoutube">osyoutube.php</filename>
         <filename>index.html</filename>
-        <filename>style.css</filename>
+        <filename>include.php</filename>
     </files>
 
     <media destination="plg_content_osyoutube" folder="media">

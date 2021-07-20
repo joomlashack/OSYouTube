@@ -2,8 +2,8 @@
 /**
  * @package   OSYouTube
  * @contact   www.joomlashack.com, help@joomlashack.com
- * @copyright 2016-2021 Joomlashack.com. All rights reserved
- * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
+ * @copyright 2021 Joomlashack.com. All rights reserved
+ * @license   https://www.gnu.org/licenses/gpl.html GNU/GPL
  *
  * This file is part of OSYouTube.
  *
@@ -18,16 +18,23 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with OSYouTube.  If not, see <http://www.gnu.org/licenses/>.
+ * along with OSYouTube.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use Alledia\OSYouTube\BasePlugin;
+use Alledia\Framework\AutoLoader;
 
 defined('_JEXEC') or die();
 
-require_once 'include.php';
+if (!defined('ALLEDIA_FRAMEWORK_LOADED')) {
+    $allediaFrameworkPath = JPATH_SITE . '/libraries/allediaframework/include.php';
 
-class PlgContentOSYoutube extends BasePlugin
-{
+    if (is_file($allediaFrameworkPath)) {
+        require_once $allediaFrameworkPath;
+    }
+}
 
+if (!defined('OSYOUTUBE_LOADED')) {
+    define('OSYOUTUBE_LOADED', true);
+
+    AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
 }

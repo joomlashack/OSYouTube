@@ -241,7 +241,7 @@ abstract class AbstractMethods
         $responsive = $params->get('responsive', 1);
 
         if ($responsive) {
-            HTMLHelper::_('stylesheet', 'plugins/content/osyoutube/style.css');
+            HTMLHelper::_('stylesheet', 'plg_content_osyoutube/style.css', ['relative' => true]);
             $output .= '<div class="video-responsive">';
         }
 
