@@ -179,10 +179,10 @@ abstract class AbstractMethods
             foreach ($matches[0] as $k => $source) {
                 $this->addLogEntry('Source: ' . $source);
 
-                $sourceUrl  = $matches[1][$k];
-                $videoCode  = $matches[2][$k];
-                $querString = html_entity_decode($matches[3][$k]);
-                $hash       = $matches[4][$k];
+                $sourceUrl   = $matches[1][$k];
+                $videoCode   = $matches[2][$k];
+                $queryString = html_entity_decode($matches[3][$k]);
+                $hash        = $matches[4][$k];
 
                 $replaceKey = sprintf('{{%s}}', md5($source));
 
@@ -193,10 +193,10 @@ abstract class AbstractMethods
 
                     } else {
                         // Convert to embedded iframe
-                        if ($querString && $querString[0] == '?') {
-                            $querString = substr($querString, 1);
+                        if ($queryString && $queryString[0] == '?') {
+                            $queryString = substr($queryString, 1);
                         }
-                        parse_str($querString, $query);
+                        parse_str($queryString, $query);
 
                         $url       = $this->getUrl($sourceUrl, $videoCode, $query, $hash);
                         $embedCode = $this->youtubeCodeEmbed($videoCode, $url);

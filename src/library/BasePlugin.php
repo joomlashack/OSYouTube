@@ -49,7 +49,7 @@ class BasePlugin extends AbstractPlugin
      * @param Dispatcher $subject
      * @param array      $config
      */
-    public function __construct($subject, array $config = array())
+    public function __construct($subject, array $config = [])
     {
         parent::__construct($subject, $config);
 
@@ -73,7 +73,7 @@ class BasePlugin extends AbstractPlugin
      *
      * @return bool
      */
-    public function onContentPrepare($context, &$article, &$params, $page = 0)
+    public function onContentPrepare($context, $article, $params, $page = 0)
     {
         return $this->methods->onContentPrepare($context, $article, $params, $page);
     }
