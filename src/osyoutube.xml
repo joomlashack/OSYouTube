@@ -13,10 +13,6 @@
 
     <scriptfile>script.installer.php</scriptfile>
 
-    <media destination="plg_content_osyoutube" folder="media">
-        <folder>css</folder>
-    </media>
-
     <files>
         <folder>language</folder>
         <folder>library</folder>
