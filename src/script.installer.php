@@ -27,9 +27,6 @@ require_once 'library/Installer/include.php';
 
 use Alledia\Installer\AbstractScript;
 
-/**
- * Custom installer script
- */
 class PlgContentOsyoutubeInstallerScript extends AbstractScript
 {
 }
