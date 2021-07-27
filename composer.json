@@ -2,8 +2,8 @@
     "name"             : "joomlashack/osyoutube",
     "description"      : "OSYouTube",
     "minimum-stability": "stable",
-    "license"          : "GPL-2+",
-    "type"             : "joomla.plugin",
+    "license"          : "GPL-2.0-or-later",
+    "type"             : "joomla-plugin",
     "extra"            : {
         "element"        : "plg_content_osyoutube",
         "element-short"  : "osyoutube",

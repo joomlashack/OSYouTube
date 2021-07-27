@@ -96,7 +96,7 @@
         <element publish="true">osyoutube</element>
         <namespace>OSYouTube</namespace>
         <license>free</license>
-        <targetplatform>3.7</targetplatform>
+        <targetplatform>3.9</targetplatform>
         <phpminimum>7.2.5</phpminimum>
 
         <relatedExtensions>
