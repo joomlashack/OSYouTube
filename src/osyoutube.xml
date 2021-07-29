@@ -99,7 +99,7 @@
 
         <relatedExtensions>
             <extension type="library"
-                       element="allediaframework">AllediaFramework</extension>
+                       element="allediaframework">ShackFramework</extension>
 
             <extension type="plugin"
                        group="system"
@@ -108,7 +108,7 @@
                        ordering="first">OSSystem</extension>
         </relatedExtensions>
 
-        <include>AllediaFreeDefaultFiles</include>
+        <include>ShackFreeDefaultFiles</include>
 
         <obsolete>
             <file>/plugins/content/osyoutube/library/Free/Embed.php</file>
