@@ -27,7 +27,7 @@ Missing 'builder.path' property
         </then>
         <else>
             <fail>-
-Missing '${builder.file}.xml' file in builder source path
+Missing '${builder.type}.xml' file in builder source path
             </fail>
         </else>
     </if>
