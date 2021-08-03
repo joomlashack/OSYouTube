@@ -1,6 +1,6 @@
 {
     "name"             : "joomlashack/osyoutube",
-    "description"      : "OSYouTube",
+    "description"      : "OSYouTube Free",
     "minimum-stability": "stable",
     "license"          : "GPL-2.0-or-later",
     "type"             : "joomla-plugin",
@@ -11,7 +11,7 @@
         "folder"         : "content",
         "client"         : "site",
         "package-license": "free",
-        "target-platform": "3.*",
+        "target-platform": "3.9",
         "infourl"        : "/changelog/osyoutube/"
     },
     "authors"          : [
