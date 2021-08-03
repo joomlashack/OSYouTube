@@ -103,12 +103,12 @@
 
             <extension type="plugin"
                        group="system"
-                       element="ossystem"
+                       element="osmylicensesmanager"
                        publish="true"
-                       ordering="first">OSSystem</extension>
+                       ordering="last">ShackExtensionSupport</extension>
         </relatedExtensions>
 
-        <include>ShackFreeDefaultFiles</include>
+        <include>ShackDefaultFiles</include>
 
         <obsolete>
             <file>/plugins/content/osyoutube/library/Free/Embed.php</file>
