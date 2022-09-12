@@ -7,8 +7,8 @@
     <copyright>Copyright 2016-2022 Joomlashack.com</copyright>
     <license>GNU GPL; see LICENSE file</license>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
-    <version>4.0.1b1</version>
-    <creationDate>August 03 2021</creationDate>
+    <version>4.0.1</version>
+    <creationDate>September 12 2022</creationDate>
     <variant>FREE</variant>
 
     <scriptfile>script.installer.php</scriptfile>
@@ -34,12 +34,13 @@
             <fieldset name="basic">
                 <field name="responsive"
                        type="radio"
+                       layout="joomla.form.field.radio.switcher"
                        class="btn-group btn-group-yesno"
                        default="1"
                        label="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_LABEL"
                        description="PLG_CONTENT_OSYOUTUBE_FIELD_RESPONSIVE_DESC">
-                    <option value="1">JYES</option>
                     <option value="0">JNO</option>
+                    <option value="1">JYES</option>
                 </field>
 
                 <field name="width"
@@ -58,12 +59,13 @@
 
                 <field name="ignore_html_links"
                        type="radio"
+                       layout="joomla.form.field.radio.switcher"
                        class="btn-group btn-group-yesno"
                        default="0"
                        label="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_LABEL"
                        description="PLG_CONTENT_OSYOUTUBE_FIELD_IGNORE_HTML_LINKS_DESC">
-                    <option value="1">JYES</option>
                     <option value="0">JNO</option>
+                    <option value="1">JYES</option>
                 </field>
 
                 <field type="customfooter"
@@ -76,11 +78,12 @@
             <fieldset name="advanced">
                 <field name="debug"
                        type="radio"
+                       layout="joomla.form.field.radio.switcher"
                        class="btn-group btn-group-yesno"
                        label="PLG_CONTENT_OSYOUTUBE_FIELD_DEBUG_LABEL"
                        default="0">
-                    <option value="0">JOFF</option>
                     <option value="1">JON</option>
+                    <option value="0">JOFF</option>
                 </field>
             </fieldset>
         </fields>
