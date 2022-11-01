@@ -22,19 +22,33 @@
  */
 
 use Alledia\Framework\AutoLoader;
+use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die();
 
-if (!defined('ALLEDIA_FRAMEWORK_LOADED')) {
-    $allediaFrameworkPath = JPATH_SITE . '/libraries/allediaframework/include.php';
+try {
+    $frameworkPath = JPATH_SITE . '/libraries/allediaframework/include.php';
+    if (is_file($frameworkPath) == false || (include $frameworkPath) == false) {
+        $app = Factory::getApplication();
 
-    if (is_file($allediaFrameworkPath)) {
-        require_once $allediaFrameworkPath;
+        if ($app->isClient('administrator')) {
+            $app->enqueueMessage('[OSYoutube] Joomlashack framework not found', 'error');
+        }
+
+        return false;
     }
+
+    if (defined('ALLEDIA_FRAMEWORK_LOADED') && !defined('OSYOUTUBE_LOADED')) {
+        AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
+
+        define('OSYOUTUBE_LOADED', true);
+    }
+
+} catch (Throwable $error) {
+    Factory::getApplication()
+        ->enqueueMessage('[OSYoutube] Unable to initialize: ' . $error->getMessage(), 'error');
+
+    return false;
 }
 
-if (!defined('OSYOUTUBE_LOADED')) {
-    define('OSYOUTUBE_LOADED', true);
-
-    AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
-}
+return defined('ALLEDIA_FRAMEWORK_LOADED') && defined('OSYOUTUBE_LOADED');

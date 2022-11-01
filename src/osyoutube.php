@@ -22,10 +22,14 @@
  */
 
 use Alledia\OSYouTube\BasePlugin;
+use Joomla\CMS\Plugin\CMSPlugin;
 
 defined('_JEXEC') or die();
 
-require_once 'include.php';
+$include = __DIR__ . '/include.php';
+if (is_file($include) == false || (include $include) == false) {
+    class_alias(CMSPlugin::class, '\\Alledia\\OSYouTube\\BasePlugin');
+}
 
 class PlgContentOSYoutube extends BasePlugin
 {
