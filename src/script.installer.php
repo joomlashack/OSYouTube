@@ -27,8 +27,7 @@ use Alledia\Installer\AbstractScript;
 defined('_JEXEC') or die();
 // phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
-
-require_once 'library/Installer/include.php';
+include __DIR__ . '/library/Installer/include.php';
 
 class PlgContentOsyoutubeInstallerScript extends AbstractScript
 {
