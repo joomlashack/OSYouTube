@@ -7,8 +7,8 @@
     <copyright>Copyright 2016-2022 Joomlashack.com</copyright>
     <license>GNU GPL; see LICENSE file</license>
     <description>PLG_CONTENT_OSYOUTUBE_DESCRIPTION</description>
-    <version>4.0.1</version>
-    <creationDate>September 12 2022</creationDate>
+    <version>4.0.2</version>
+    <creationDate>November 07 2022</creationDate>
     <variant>FREE</variant>
 
     <scriptfile>script.installer.php</scriptfile>
