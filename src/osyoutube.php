@@ -3,7 +3,7 @@
  * @package   OSYouTube
  * @contact   www.joomlashack.com, help@joomlashack.com
  * @copyright 2016-2023 Joomlashack.com. All rights reserved
- * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
+ * @license   https://www.gnu.org/licenses/gpl.html GNU/GPL
  *
  * This file is part of OSYouTube.
  *
@@ -18,7 +18,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with OSYouTube.  If not, see <http://www.gnu.org/licenses/>.
+ * along with OSYouTube.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 use Alledia\OSYouTube\BasePlugin;
