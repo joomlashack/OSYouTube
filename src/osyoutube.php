@@ -24,12 +24,15 @@
 use Alledia\OSYouTube\BasePlugin;
 use Joomla\CMS\Plugin\CMSPlugin;
 
+// phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die();
 
 $include = __DIR__ . '/include.php';
-if (is_file($include) == false || (include $include) == false) {
-    class_alias(CMSPlugin::class, '\\Alledia\\OSYouTube\\BasePlugin');
+if ((is_file($include) && include $include) == false) {
+    class_alias(CMSPlugin::class, BasePlugin::class);
 }
+// phpcs:enable PSR1.Files.SideEffects
+// phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
 class PlgContentOSYoutube extends BasePlugin
 {
