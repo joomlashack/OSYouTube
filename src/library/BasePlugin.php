@@ -26,13 +26,22 @@ namespace Alledia\OSYouTube;
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use Alledia\OSYouTube\Free\Methods;
 use Exception;
-use Joomla\Event\Dispatcher;
+use Joomla\CMS\Application\CMSApplication;
 use Joomla\Registry\Registry;
 
+// phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die();
+
+// phpcs:enable PSR1.Files.SideEffects
 
 class BasePlugin extends AbstractPlugin
 {
+    /**
+     * @inheritdoc
+     * @var CMSApplication
+     */
+    protected $app = null;
+
     /**
      * @var string
      */
@@ -44,10 +53,8 @@ class BasePlugin extends AbstractPlugin
     protected $methods = null;
 
     /**
-     * BasePlugin constructor.
-     *
-     * @param Dispatcher $subject
-     * @param array      $config
+     * @inheritDoc
+     * @throws Exception
      */
     public function __construct($subject, array $config = [])
     {

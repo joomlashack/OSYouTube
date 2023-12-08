@@ -25,15 +25,23 @@ namespace Alledia\OSYouTube;
 
 use Alledia\Framework\Joomla\Extension\AbstractPlugin;
 use Exception;
+use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
+// phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die();
+// phpcs:enable PSR1.Files.SideEffects
 
 abstract class AbstractMethods
 {
+    /**
+     * @var CMSApplication
+     */
+    protected $app = null;
+
     /**
      * @var Registry
      */
@@ -83,9 +91,13 @@ abstract class AbstractMethods
      * AbstractMethods constructor.
      *
      * @param AbstractPlugin $parent
+     *
+     * @return void
+     * @throws Exception
      */
     public function __construct(AbstractPlugin $parent)
     {
+        $this->app         = Factory::getApplication();
         $this->params      = $parent->params;
         $this->ignoreLinks = $this->params->get('ignore_html_links', 0);
         $this->searches    = $this->getSearches();
@@ -172,7 +184,7 @@ abstract class AbstractMethods
      *
      * @return void
      */
-    protected function createPlaceholders($regex, &$text, $links = false)
+    protected function createPlaceholders(string $regex, string &$text, ?bool $links = false): void
     {
         if (preg_match_all($regex, $text, $matches)) {
             $this->addLogEntry($links ? 'Hide Links' : 'Create embed code');
@@ -217,11 +229,11 @@ abstract class AbstractMethods
      *
      * @return array
      */
-    protected function getSearches()
+    protected function getSearches(): array
     {
         return [
             '(https?://(?:www\.)?youtube.com/embed/([a-zA-Z0-9-_&;=]+))(\?[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?',
-            '(https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_;]+))(&[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?'
+            '(https?://(?:www\.)?youtube.com/watch\?v=([a-zA-Z0-9-_;]+))(&[a-zA-Z0-9-_&;=]*)?(#[a-zA-Z0-9-_&;=]*)?',
         ];
     }
 
@@ -231,7 +243,7 @@ abstract class AbstractMethods
      *
      * @return string
      */
-    protected function youtubeCodeEmbed($videoCode, $iframeSrc)
+    protected function youtubeCodeEmbed(string $videoCode, string $iframeSrc): string
     {
         $output = '';
         $params = $this->params;
@@ -269,7 +281,7 @@ abstract class AbstractMethods
             'width'       => $width,
             'height'      => $height,
             'frameborder' => '0',
-            'src'         => $iframeSrc
+            'src'         => $iframeSrc,
         ];
 
         if (!empty($iframeDataSrc)) {
@@ -286,14 +298,14 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param string $sourceUrl
-     * @param string $videoCode
-     * @param array  $query
-     * @param string $hash
+     * @param string  $sourceUrl
+     * @param string  $videoCode
+     * @param ?array  $query
+     * @param ?string $hash
      *
      * @return string
      */
-    protected function getUrl($sourceUrl, $videoCode, array $query = [], $hash = null)
+    protected function getUrl(string $sourceUrl, string $videoCode, ?array $query = [], ?string $hash = null): string
     {
         $query = array_merge(['wmode' => 'transparent'], $query);
 
@@ -309,8 +321,10 @@ abstract class AbstractMethods
      * @param string $message
      * @param bool   $heading
      * @param bool   $prepend
+     *
+     * @return void
      */
-    protected function addLogEntry($message, $heading = false, $prepend = false)
+    protected function addLogEntry(string $message, ?bool $heading = false, ?bool $prepend = false): void
     {
         if ($heading) {
             $entry = sprintf('*** %s (%03d/%03d) ***', $message, static::$instance, $this->called);
@@ -334,11 +348,11 @@ abstract class AbstractMethods
     }
 
     /**
-     * @param bool $reset
+     * @param ?bool $reset
      *
      * @return string
      */
-    protected function renderDebugLog($reset = true)
+    protected function renderDebugLog(?bool $reset = true): string
     {
         $renderedLog = '';
 
@@ -372,11 +386,11 @@ abstract class AbstractMethods
      *
      * @return string
      */
-    protected function getCaller($stackIndex = 6)
+    protected function getCaller(int $stackIndex = 6): string
     {
         $stackItem = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)[$stackIndex];
 
-        return (empty($stackItem['class']) ? '' : $stackItem['class'])
+        return ($stackItem['class'] ?? '')
             . (empty($stackItem['function']) ? '' : '::' . $stackItem['function'] . '() ')
             . (empty($stackItem['file']) ? '' : ' - ' . str_replace(JPATH_SITE . '/', '', $stackItem['file']))
             . (empty($stackItem['line']) ? '' : ':' . $stackItem['line']);
