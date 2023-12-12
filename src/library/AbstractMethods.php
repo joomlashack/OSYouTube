@@ -33,6 +33,7 @@ use Joomla\Utilities\ArrayHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die();
+
 // phpcs:enable PSR1.Files.SideEffects
 
 abstract class AbstractMethods
@@ -122,13 +123,13 @@ abstract class AbstractMethods
 
         $this->replacements = [];
 
-        // Hide any youtube links already embedded with <iframe>
+        // Hide any YouTube links already embedded with <iframe>
         if (preg_match_all('#<iframe.*src=["\']\S*youtube\S*\.com.*</iframe>#', $article->text, $iframes)) {
             foreach ($iframes[0] as $source) {
                 $this->addLogEntry('Skipped iframe: ' . $source);
 
                 $replaceKey = sprintf('{{%s}}', md5($source));
-                if (!isset($this->replacements[$replaceKey])) {
+                if (isset($this->replacements[$replaceKey]) == false) {
                     $this->replacements[$replaceKey] = $source;
 
                     $article->text = str_replace($source, $replaceKey, $article->text);
@@ -138,7 +139,7 @@ abstract class AbstractMethods
 
         // Do links first to hide them from plain url searches
         foreach ($this->searches as $regex) {
-            $linkRegex = '#(?:<a.*href=[\'"])' . addcslashes($regex, '#') . '(?:[\'"].*>.*</a>)#';
+            $linkRegex = '#<a.*href=[\'"]' . addcslashes($regex, '#') . '[\'"].*>.*</a>#';
             $this->createPlaceholders($linkRegex, $article->text, true);
         }
 
@@ -198,7 +199,7 @@ abstract class AbstractMethods
 
                 $replaceKey = sprintf('{{%s}}', md5($source));
 
-                if (!isset($this->replacements[$replaceKey])) {
+                if (isset($this->replacements[$replaceKey]) == false) {
                     if ($this->ignoreLinks && $links) {
                         // Hide the link temporarily to avoid crashes
                         $this->replacements[$replaceKey] = $source;
@@ -270,7 +271,7 @@ abstract class AbstractMethods
         }
 
         $id = 'youtube_' . $videoCode;
-        if (!empty($this->videoIds[$videoCode])) {
+        if (empty($this->videoIds[$videoCode]) == false) {
             $id .= '_' . ($this->videoIds[$videoCode]++);
         } else {
             $this->videoIds[$videoCode] = 1;
@@ -284,7 +285,7 @@ abstract class AbstractMethods
             'src'         => $iframeSrc,
         ];
 
-        if (!empty($iframeDataSrc)) {
+        if (empty($iframeDataSrc) == false) {
             $attribs['data-src'] = $iframeDataSrc;
         }
 
@@ -335,7 +336,7 @@ abstract class AbstractMethods
 
         $key = md5(static::$instance . '.' . $this->called);
 
-        if (!isset($this->debugLog[$key])) {
+        if (isset($this->debugLog[$key]) == false) {
             $this->debugLog[$key] = [];
         }
 
@@ -377,7 +378,7 @@ abstract class AbstractMethods
      *
      * 0. self::getCaller
      * 1. self::onContentPrepare
-     * 2. Pro\Methods\onContentPrepare (So free version will be off
+     * 2. Pro\Methods\onContentPrepare (So free version will be off)
      * 3. BasePlugin::onContentPrepare
      * 4. \JEvent::update
      * 5. \JEventDispatcher::trigger

@@ -39,7 +39,7 @@ try {
         return false;
     }
 
-    if (defined('ALLEDIA_FRAMEWORK_LOADED') && !defined('OSYOUTUBE_LOADED')) {
+    if (defined('ALLEDIA_FRAMEWORK_LOADED') && defined('OSYOUTUBE_LOADED') == false) {
         AutoLoader::register('Alledia\\OSYouTube', __DIR__ . '/library');
 
         define('OSYOUTUBE_LOADED', true);

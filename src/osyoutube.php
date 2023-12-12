@@ -36,5 +36,4 @@ if ((is_file($include) && include $include) == false) {
 
 class PlgContentOSYoutube extends BasePlugin
 {
-
 }
