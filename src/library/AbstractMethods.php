@@ -116,47 +116,49 @@ abstract class AbstractMethods
      */
     public function onContentPrepare($context, $article, $params, $page = 0)
     {
-        $this->called++;
-        $this->addLogEntry('OSYoutube BEGIN - ' . $context, true);
-        $this->addLogEntry('Caller: ' . $this->getCaller());
-        $this->addLogEntry('Hash: ' . md5($article->text));
+        if (empty($article->text) == false) {
+            $this->called++;
+            $this->addLogEntry('OSYoutube BEGIN - ' . $context, true);
+            $this->addLogEntry('Caller: ' . $this->getCaller());
+            $this->addLogEntry('Hash: ' . md5($article->text));
 
-        $this->replacements = [];
+            $this->replacements = [];
 
-        // Hide any YouTube links already embedded with <iframe>
-        if (preg_match_all('#<iframe.*src=["\']\S*youtube\S*\.com.*</iframe>#', $article->text, $iframes)) {
-            foreach ($iframes[0] as $source) {
-                $this->addLogEntry('Skipped iframe: ' . $source);
+            // Hide any YouTube links already embedded with <iframe>
+            if (preg_match_all('#<iframe.*src=["\']\S*youtube\S*\.com.*</iframe>#', $article->text, $iframes)) {
+                foreach ($iframes[0] as $source) {
+                    $this->addLogEntry('Skipped iframe: ' . $source);
 
-                $replaceKey = sprintf('{{%s}}', md5($source));
-                if (isset($this->replacements[$replaceKey]) == false) {
-                    $this->replacements[$replaceKey] = $source;
+                    $replaceKey = sprintf('{{%s}}', md5($source));
+                    if (isset($this->replacements[$replaceKey]) == false) {
+                        $this->replacements[$replaceKey] = $source;
 
-                    $article->text = str_replace($source, $replaceKey, $article->text);
+                        $article->text = str_replace($source, $replaceKey, $article->text);
+                    }
                 }
             }
-        }
 
-        // Do links first to hide them from plain url searches
-        foreach ($this->searches as $regex) {
-            $linkRegex = '#<a.*href=[\'"]' . addcslashes($regex, '#') . '[\'"].*>.*</a>#';
-            $this->createPlaceholders($linkRegex, $article->text, true);
-        }
+            // Do links first to hide them from plain url searches
+            foreach ($this->searches as $regex) {
+                $linkRegex = '#<a.*href=[\'"]' . addcslashes($regex, '#') . '[\'"].*>.*</a>#';
+                $this->createPlaceholders($linkRegex, $article->text, true);
+            }
 
-        // Now we can safely look for non-link instances
-        foreach ($this->searches as $regex) {
-            $plainRegex = '#' . addcslashes($regex, '#') . '#';
-            $this->createPlaceholders($plainRegex, $article->text);
-        }
+            // Now we can safely look for non-link instances
+            foreach ($this->searches as $regex) {
+                $plainRegex = '#' . addcslashes($regex, '#') . '#';
+                $this->createPlaceholders($plainRegex, $article->text);
+            }
 
-        if ($this->replacements) {
-            $article->text = str_replace(array_keys($this->replacements), $this->replacements, $article->text);
-        }
+            if ($this->replacements) {
+                $article->text = str_replace(array_keys($this->replacements), $this->replacements, $article->text);
+            }
 
-        $this->addLogEntry('Hash: ' . md5($article->text));
-        $this->addLogEntry('OSYoutube END - ' . $context, true);
-        if ($this->params->get('debug')) {
-            $article->text .= $this->renderDebugLog();
+            $this->addLogEntry('Hash: ' . md5($article->text));
+            $this->addLogEntry('OSYoutube END - ' . $context, true);
+            if ($this->params->get('debug')) {
+                $article->text .= $this->renderDebugLog();
+            }
         }
 
         return true;
