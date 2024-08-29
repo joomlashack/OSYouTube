@@ -43,7 +43,7 @@ class BasePlugin extends AbstractPlugin
     protected $app = null;
 
     /**
-     * @var string
+     * @inheritdoc
      */
     protected $namespace = 'OSYouTube';
 
