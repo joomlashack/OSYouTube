@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package   OSYouTube
  * @contact   www.joomlashack.com, help@joomlashack.com
- * @copyright 2021-2024 Joomlashack.com. All rights reserved
+ * @copyright 2021-2026 Joomlashack.com. All rights reserved
  * @license   https://www.gnu.org/licenses/gpl.html GNU/GPL
  *
  * This file is part of OSYouTube.
